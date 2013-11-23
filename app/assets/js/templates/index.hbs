@@ -1,6 +1,12 @@
 <h1>{{trans 'app.welcome.header'}}</h1>
 <p>{{trans 'app.welcome.body'}}</p>
 
-<div class="dossier-upload">
-{{#upload-button action="showDossier" classNames="btn btn-primary btn-lg dossier-upload-btn"}}{{trans 'app.dossier.upload'}}{{/upload-button}}
+<div class="input-group input-group-lg dossier-upload">
+    <input class="form-control" type="text" value="%AppData%\wargaming.net\WorldOfTanks\dossier_cache" readonly autofocus>
+
+    <span class="input-group-btn">
+        {{#upload-button action="showDossier" classNames="btn btn-primary btn-lg dossier-upload-btn"}}
+            {{trans 'app.dossier.upload'}}
+        {{/upload-button}}
+    </span>
 </div>
