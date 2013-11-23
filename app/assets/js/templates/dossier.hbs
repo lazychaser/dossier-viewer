@@ -30,7 +30,7 @@
         <tr class="item is-totals">
         {{#with totals.battle}}
             <td class="col-tier">{{float avgTier}}</td>
-            <td class="col-title">По аккаунту</td>
+            <td class="col-title"><span class="icon-tank icon-tank-Observer"></span> По аккаунту</td>
             <td>{{battles}}</td>
             <td>{{percents winRate}}</td>
             <td>{{float avgDamageDealt}}</td>
@@ -44,7 +44,7 @@
         <tr {{bind-attr class=":item isMuted"}}>
     {{#if battle.battles}}
             <td class="col-tier">{{battle.avgTier}}</td>
-            <td class="col-title">{{tank.info.title}}</td>
+            <td class="col-title"><span {{bind-attr class=":icon-tank tank.icon"}}></span> {{tank.info.title}}</td>
             <td>{{battle.battles}}</td>
             <td>{{percents battle.winRate}}</td>
             <td>{{float battle.avgDamageDealt}}</td>

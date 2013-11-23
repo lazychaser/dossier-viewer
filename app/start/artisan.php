@@ -16,3 +16,7 @@ $file = File::getFacadeRoot();
 $lang = Lang::getFacadeRoot();
 
 Artisan::add(new LocalizeJsCommand($config, $file, $lang));
+
+$iconSetGenerator = new Dosser\IconSetGenerator($file);
+
+Artisan::add(new GenerateIconsCommand($iconSetGenerator));

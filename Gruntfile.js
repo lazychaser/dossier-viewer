@@ -90,6 +90,7 @@ module.exports = function(grunt) {
                     'public/css/styles.min.css': [
                         'public/css/bootstrap.css',
                         'public/css/styles.css',
+                        'app/assets/icons/vehicle.css',
                     ]
                 }
             }
@@ -112,6 +113,10 @@ module.exports = function(grunt) {
             lang: {
                 command: 'php artisan localize-js',
             },
+
+            icons: {
+                command: 'php artisan generate-icon-set --css=icon-tank --image=public/img/vehicle.png app/assets/icons/vehicle > app/assets/icons/vehicle.css',
+            }
         },
 
         watch: {
@@ -169,5 +174,5 @@ module.exports = function(grunt) {
     grunt.registerTask('css', ['recess', 'cssmin']);
     
     // Default task(s).
-    grunt.registerTask('default', ['css', 'js', 'copy:fonts', 'shell:lang']);
+    grunt.registerTask('default', ['shell:icons', 'css', 'js', 'copy:fonts', 'shell:lang']);
 };
