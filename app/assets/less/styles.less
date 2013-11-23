@@ -1,0 +1,122 @@
+@import "bootstrap/variables_customized.less";
+@import "mixins.less";
+
+body {
+    padding-top: @navbar-height + 5px;
+}
+
+.main-content-narrow {
+    .center-block();
+    width: @screen-md;
+    padding: 0 15px;
+
+    text-align: center;
+}
+
+.dossier-file {
+    display: inline !important;
+}
+
+.app {
+    &-loading {
+        background: url("../img/ajax-loader.gif") center center no-repeat;
+        height: 31px;
+        width: 31px;
+
+        top: @navbar-height + 5px;
+        left: 5px;
+
+        position: absolute;
+    }
+
+    &-error {
+        display: none;
+    }
+
+}
+
+.app
+.dossier-loading {
+    background: url("../img/ajax-loader.gif") center center no-repeat;
+    height: 31px;
+    margin-top: 20px;
+}
+
+.dossier {
+    &-upload-btn {
+        position: relative;
+        overflow: hidden;
+
+        input {
+            position: absolute;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+            line-height: @font-size-large * @line-height-large + @padding-large-vertical * 2;
+            .opacity(0);
+        }
+    }
+
+    &-refresh {
+        color: @gray-light;
+        font-size: 60%;
+    }
+
+    &-details {
+    
+        font-size: @font-size-small;    
+    
+        dt, dd {
+            display: inline;
+        }
+    }
+
+    &-table {
+
+        th { 
+            text-align: center;
+        }
+
+        .item {
+
+            &.is-muted {
+                .opacity(0.5);
+
+                &:hover {
+                    .opacity(1);
+                }
+            }
+
+            &.is-totals {
+                font-weight: bold;
+            }
+        }
+
+        .col-tier {
+            width: 50px;
+        }
+
+        .col-title {
+            text-align: left;
+        }
+    }
+}
+
+.color-scale {
+    position: relative;
+    top: 1px;
+    font-family: 'Glyphicons Halflings';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+
+    &:before { content: '\e008'; }
+
+    &.bad { color: #fe0e00; }
+    &.below-average { color: #fe7903; }
+    &.average { color: #f8f403; }
+    &.good { color: #60ff00; }
+    &.great { color: #02c9b3; }
+    &.unicum { color: #d042f3; }
+}

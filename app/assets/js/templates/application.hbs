@@ -1,0 +1,8 @@
+<nav class="navbar navbar-fixed-top navbar-default" role="navigation">
+    {{#link-to 'index' class='navbar-brand'}}{{trans 'app.brand' 'dosser'}}{{/link-to}}
+</nav>
+
+<div class="main-content-narrow">
+    {{#if App.error}}{{#view App.ErrorView}}{{App.error}}{{/view}}{{/if}}
+    {{outlet}}
+</div>

@@ -1,0 +1,60 @@
+<dl class="dossier-details">
+    <dt>Сервер:</dt>
+    <dd>{{dossier.server}}</dd>
+    <dt>Последний раз играл:</dt>
+    <dd>{{date totals.tank.last_played_at}}</dd>
+</dl>
+
+<h1 class="page-header">
+    {{dossier.player}}
+    {{#link-to 'index' title="Обновить досье" class="dossier-refresh"}}
+        {{icon 'refresh'}}
+    {{/link-to}}
+</h1>
+
+{{lookup filter.component filter=filter}}
+
+<table class="dossier-table table table-hover table-condensed">
+    <thead>
+        <tr>
+            <th class="col-tier">Ур. {{icon 'question-sign help' 'Уровень танка. Для аккаунта это средний уровень танков.'}}</th>
+            <th class="col-title">Название</th>
+            <th>Бои</th>
+            <th>Победы</th>
+            <th>Дамаг</th>
+            <th>{{formula.name}}</th>
+        </tr>
+    </thead>
+    
+    <tbody class="account">
+        <tr class="item is-totals">
+        {{#with totals.battle}}
+            <td class="col-tier">{{float avgTier}}</td>
+            <td class="col-title">По аккаунту</td>
+            <td>{{battles}}</td>
+            <td>{{percents winRate}}</td>
+            <td>{{float avgDamageDealt}}</td>
+            <td>{{color-scale ../totals/efficiency ./formula}} {{../totals.efficiency}}</td>
+        {{/with}}
+        </tr>
+    </tbody>
+
+    <tbody>
+{{#each tanks}}
+        <tr {{bind-attr class=":item isMuted"}}>
+    {{#if battle.battles}}
+            <td class="col-tier">{{battle.avgTier}}</td>
+            <td class="col-title">{{tank.info.title}}</td>
+            <td>{{battle.battles}}</td>
+            <td>{{percents battle.winRate}}</td>
+            <td>{{float battle.avgDamageDealt}}</td>
+            <td>{{color-scale efficiency dossier.formula}} {{efficiency}}</td>
+    {{else}}
+            <td class="col-tier">{{tank.info.tier}}</td>
+            <td class="col-title">{{tank.info.title}}</td>
+            <td colspan="5">никогда не играл</td>
+    {{/if}}
+        </tr>
+{{/each}}
+    </tbody>
+</table>
