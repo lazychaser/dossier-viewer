@@ -47,6 +47,9 @@ module.exports = function(grunt) {
                     '<%= app %>/classes/filters/base.js',
                     '<%= app %>/classes/filters/battleType.js',
 
+                    // Components
+                    '<%= app %>/components/uploadButton.js',
+
                     // Pages
                     '<%= app %>/pages/index.js',
                     '<%= app %>/pages/dossier.js',
@@ -166,5 +169,5 @@ module.exports = function(grunt) {
     grunt.registerTask('css', ['recess', 'cssmin']);
     
     // Default task(s).
-    grunt.registerTask('default', ['css', 'js', 'copy:fonts']);
+    grunt.registerTask('default', ['css', 'js', 'copy:fonts', 'shell:lang']);
 };

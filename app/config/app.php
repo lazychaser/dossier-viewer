@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -63,9 +63,15 @@ return array(
 			'welcome.header',
 			'welcome.body',
 
+			'general-error',
+
 			'dossier' => array(
 				'upload', 'refresh',
 				'error.upload',
+				'error.not-found',
+				'error.wrong-player',
+				'last-played',
+				'server',
 				'battles' => array('header', 'random', 'clan', 'company', 'b7_42'),
 			),
 		),
@@ -133,7 +139,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
-		'Barryvdh\Debugbar\ServiceProvider',
+		// 'Barryvdh\Debugbar\ServiceProvider',
 		'Kalnoy\Wot\Dossier\DossierServiceProvider',
 		'Dosser\DosserServiceProvider',
 	),

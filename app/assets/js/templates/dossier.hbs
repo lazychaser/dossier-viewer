@@ -1,15 +1,15 @@
 <dl class="dossier-details">
-    <dt>Сервер:</dt>
+    <dt>{{trans 'app.dossier.server'}}:</dt>
     <dd>{{dossier.server}}</dd>
-    <dt>Последний раз играл:</dt>
+    <dt>{{trans 'app.dossier.last-played'}}:</dt>
     <dd>{{date totals.tank.last_played_at}}</dd>
 </dl>
 
 <h1 class="page-header">
     {{dossier.player}}
-    {{#link-to 'index' title="Обновить досье" class="dossier-refresh"}}
+    {{#upload-button action="updateDossier" class="dossier-refresh btn btn-link" title="{{trans app.dossier.refresh}}"}}
         {{icon 'refresh'}}
-    {{/link-to}}
+    {{/upload-button}}
 </h1>
 
 {{lookup filter.component filter=filter}}
