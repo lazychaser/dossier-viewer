@@ -35,7 +35,7 @@ class IconSetGenerator {
                 $icon = $matches[1];
                 $icons[] = compact('path', 'icon');
 
-                $info = getimagesize($path);
+                $info = \getimagesize($path);
 
                 // Get the largest icon size.
                 if ($width === null || $info[0] > $width)
@@ -56,7 +56,7 @@ class IconSetGenerator {
 
             // Make a gap.
             ++$i;
-            
+
             $icon['x'] = $width * ($i % $columns);
             $icon['y'] = $height * (int)($i / $columns);
         });
@@ -74,21 +74,21 @@ class IconSetGenerator {
         $width = $this->width * $this->columns;
         $height = $this->height * ceil((float)count($this->icons) / $this->columns);
 
-        $out = imagecreatetruecolor($width, $height);
+        $out = \imagecreatetruecolor($width, $height);
         
-        imagealphablending($out, false);
-        imagesavealpha($out, true);
+        \imagealphablending($out, false);
+        \imagesavealpha($out, true);
 
-        imagefill($out, 0, 0, 0x7fffffff);
+        \imagefill($out, 0, 0, 0x7fffffff);
 
         foreach ($this->icons as $icon) 
         {
-            $iconImage = imagecreatefrompng($icon['path']);
+            $iconImage = \imagecreatefrompng($icon['path']);
 
-            imagealphablending($iconImage, false);
+            \imagealphablending($iconImage, false);
 
-            $width = imagesx($iconImage);
-            $height = imagesy($iconImage);
+            $width = \imagesx($iconImage);
+            $height = \imagesy($iconImage);
             $x = 0;
 
             if ($width < $this->width)
@@ -96,17 +96,17 @@ class IconSetGenerator {
                 $x = ($this->width - $width) / 2;
             }
 
-            imagecopy($out, $iconImage, $icon['x'] + (int)$x, $icon['y'], 0, 0, $width, $height);
+            \imagecopy($out, $iconImage, $icon['x'] + (int)$x, $icon['y'], 0, 0, $width, $height);
 
-            imagedestroy($iconImage);
+            \imagedestroy($iconImage);
         }
 
         // imagealphablending($out, false);
         // 
 
-        $result = @imagepng($out, $path);
+        $result = @\imagepng($out, $path);
 
-        imagedestroy($out);
+        \imagedestroy($out);
 
         return $result;
     }
