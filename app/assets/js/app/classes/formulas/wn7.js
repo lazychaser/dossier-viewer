@@ -9,7 +9,7 @@ App.Dossier.Wn7Formula = App.Dossier.BaseFormula.extend({
         var b = totals.get('battle')
             , battles = b.get('battles');
 
-        if (b.battles == 0) return 0;
+        if (!battles) return 0;
 
         var   tier = b.get('avgTier')
             , frag = b.get('avgFrags')

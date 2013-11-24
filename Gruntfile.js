@@ -8,6 +8,7 @@ module.exports = function(grunt) {
         vendor: 'app/assets/js/vendor',
         app: 'app/assets/js/app',
         templates: 'app/assets/js/templates',
+        icons: 'app/assets/icons',
 
         emberTemplates: {
 
@@ -115,7 +116,7 @@ module.exports = function(grunt) {
             },
 
             icons: {
-                command: 'php artisan generate-icon-set --css=icon-tank --image=public/img/vehicle.png app/assets/icons/vehicle > app/assets/icons/vehicle.css',
+                command: 'php artisan generate-icon-set -i <%= icons %>/vehicle.png <%= icons %>/vehicle --css icon-tank > <%= icons %>/vehicle.css',
             }
         },
 

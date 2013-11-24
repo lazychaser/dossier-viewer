@@ -82,16 +82,29 @@ App.Dossier.reopenClass({
         , COMPANY: 2
         , B7_42: 3
         , AGGREGATED: 255
-    }
+    } 
+});
+
+App.Dossier.Store = {
+
+    data: {}
 
     , byPlayer: function (player) {
 
+        if (this.data[player]) return this.data[player];
+
         return $.getJSON('/' + player + '.json').then(function (resp) {
+
             return App.Dossier.fromJSON(resp);
         });
     }
 
     , fromJSON: function (data) {
-        return App.Dossier.create({ dossier: data });
-    }
-});
+
+        var dossier = App.Dossier.create({ dossier: data });
+
+        this.data[data.player] = dossier;
+
+        return dossier;
+    } 
+}
