@@ -3,6 +3,7 @@
 </nav>
 
 <div class="main-content-narrow">
-    {{#if App.error}}{{#view App.ErrorView}}{{App.error}}{{/view}}{{/if}}
+    {{view App.AlertView message=App.error}}
+    {{view App.AlertView type="success" message=App.success timeout=4000}}
     {{outlet}}
 </div>

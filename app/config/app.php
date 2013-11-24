@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => true,
+	'debug' => false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -66,7 +66,7 @@ return array(
 			'general-error',
 
 			'dossier' => array(
-				'upload', 'refresh',
+				'upload', 'refresh', 'did-refresh',
 				'error.upload',
 				'error.not-found',
 				'error.wrong-player',

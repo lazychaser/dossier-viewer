@@ -1,4 +1,4 @@
-App.DossierRoute = Ember.Route.extend({
+App.DossierRoute = App.Route.extend({
 
     model: function (params) {
 
@@ -12,11 +12,11 @@ App.DossierRoute = Ember.Route.extend({
 
     , actions: {
 
-        error: function (xhr) {
-            if (xhr.code !== 404) return true;
+        error: function (xhr, transition) {
 
-            this.transitionTo('index');
-            App.set('error', trans('app.dossier.error.not-found'));
+            if (xhr.status !== 404) return true;
+
+            this.transitionWithErrorTo('index', trans('app.dossier.error.not-found'));
         }
     }
 });
@@ -26,9 +26,10 @@ App.DossierController = Ember.ObjectController.extend({
     actions: {
 
         updateDossier: function (dossier) {
-            if (dossier.dossier.player !== this.get('model.dossier.player')) {
+            if (dossier.get('dossier.player') !== this.get('model.dossier.player')) {
                 App.set('error', trans('app.dossier.error.wrong-player'));
             } else {
+                App.set('success', trans('app.dossier.did-refresh'));
                 this.send('showDossier', dossier);
             }
         }

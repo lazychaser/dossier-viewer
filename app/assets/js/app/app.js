@@ -2,13 +2,27 @@ $('#loading').remove();
 
 App = Ember.Application.create({
     error: null
+    , success: null
 });
 
 App.Router.map(function () {
     this.resource('dossier', { path: ':player' });
 });
 
-App.ApplicationRoute = Ember.Route.extend({
+App.Route = Ember.Route.extend({
+
+    deactivate: function () { App.set('error', null); }
+    , beforeModel: function () { App.set('error', null); }
+
+    , transitionWithErrorTo: function (route, message) {
+
+        this.transitionTo(route).then(function () {
+            App.set('error', message);
+        });
+    }
+})
+
+App.ApplicationRoute = App.Route.extend({
 
     actions: {
         loading: function () {
@@ -26,8 +40,7 @@ App.ApplicationRoute = Ember.Route.extend({
         , error: function (xhr, transition) {
             var message = xhr.responseJSON.error.message || trans('app.general-error');
 
-            App.set('error', message);
-            this.transitionTo('index');
+            this.transitionWithErrorTo('index', message);
         }
 
         , showDossier: function (dossier) {
@@ -36,10 +49,34 @@ App.ApplicationRoute = Ember.Route.extend({
     }
 });
 
-App.ErrorView = Ember.View.extend({
-    tagName: 'p',
-    classNames: 'alert alert-danger app-error',
+App.AlertView = Ember.View.extend({
+    templateName: 'alert'
+    , tagName: 'p'
+    , classNames: 'alert app-alert'
+    , classNameBindings: ['message::is-hidden', 'typeClass']
+    , message: null
+    , type: 'danger'
+    , timeout: null
 
-    didInsertElement: function () { this.$().fadeIn('fast'); },
-    willDestroyElement: function () { this.$().fadeOut('fast'); }
+    , typeClass: function () {
+        return 'alert-' + this.get('type');
+    }
+    .property('type')
+
+    , messageChanged: function () {
+        var me = this
+            , timeout = me.get('timeout')
+            , message = me.get('message')
+            ;
+
+        timeout && message && setTimeout(function () { me.send('close'); }, timeout);
+    }   
+    .observes('message')
+
+    , actions: {
+
+        close: function () {
+            this.set('message', null);
+        }
+    }
 });

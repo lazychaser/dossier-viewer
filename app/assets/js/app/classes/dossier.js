@@ -90,10 +90,13 @@ App.Dossier.Store = {
     data: {}
 
     , byPlayer: function (player) {
+        var me = this;
 
-        if (this.data[player]) return this.data[player];
+        if (me.data[player]) return this.fromJSON(this.data[player]);
 
         return $.getJSON('/' + player + '.json').then(function (resp) {
+
+            me.data[player] = resp;
 
             return App.Dossier.Store.fromJSON(resp);
         });
@@ -101,10 +104,6 @@ App.Dossier.Store = {
 
     , fromJSON: function (data) {
 
-        var dossier = App.Dossier.create({ dossier: data });
-
-        this.data[data.player] = dossier;
-
-        return dossier;
+        return App.Dossier.create({ dossier: data });
     } 
 }
