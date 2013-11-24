@@ -176,4 +176,6 @@ module.exports = function(grunt) {
     
     // Default task(s).
     grunt.registerTask('default', ['shell:icons', 'css', 'js', 'copy:fonts', 'shell:lang']);
+
+    grunt.registerTask('update', ['css', 'js', 'shell:lang']);
 };

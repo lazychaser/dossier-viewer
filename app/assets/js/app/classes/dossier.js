@@ -95,7 +95,7 @@ App.Dossier.Store = {
 
         return $.getJSON('/' + player + '.json').then(function (resp) {
 
-            return App.Dossier.fromJSON(resp);
+            return App.Dossier.Store.fromJSON(resp);
         });
     }
 
