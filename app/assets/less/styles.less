@@ -6,9 +6,9 @@ body {
     padding-top: @navbar-height + 5px;
 }
 
-.main-content-narrow {
-    .center-block();
-    width: @screen-md;
+.main-content {
+    // .center-block();
+    // width: @screen-md;
     padding: 0 15px;
 
     text-align: center;
@@ -67,7 +67,6 @@ body {
 
 .dossier {
 
-
     &-refresh {
         color: @gray-light;
         font-size: 60%;
@@ -99,6 +98,10 @@ body {
     }
 
     &-table {
+
+        width: auto;
+        min-width: @screen-sm;
+        margin: 0 auto;
 
         th { 
             text-align: center;
@@ -132,6 +135,11 @@ body {
 
         .col-title {
             text-align: left;
+            width: 200px;
+        }
+
+        .col-float, .col-percent {
+            width: 70px;
         }
 
         .col-icon {

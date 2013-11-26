@@ -1,6 +1,6 @@
 <dl class="dossier-details">
     <dt>{{trans 'app.dossier.server'}}:</dt>
-    <dd>{{dossier.server}}</dd>
+    <dd>{{server}}</dd>
 
 {{#if totals.battle.battles}}
     <dt>{{trans 'app.dossier.last-played'}}:</dt>
@@ -9,7 +9,7 @@
 </dl>
 
 <h1 class="page-header">
-    {{dossier.player}}
+    {{player}}
     {{#upload-button action="updateDossier" class="dossier-refresh btn btn-link" title="{{trans app.dossier.refresh}}"}}
         {{icon 'refresh'}}
     {{/upload-button}}
@@ -18,8 +18,8 @@
 {{lookup filter.component filter=filter}}
 
 <div class="dossier-data">
-{{#if tanks}}
-    <table class="dossier-table table table-hover table-condensed">
+{{#if stats}}
+    <table class="dossier-table table table-hover">
         <thead>
             <tr>
                 <th class="col-tier">Ур. {{icon 'question-sign help' 'Уровень танка. Для аккаунта это средний уровень танков.'}}</th>
@@ -34,20 +34,20 @@
         
         <tbody class="account">
             <tr class="item is-totals">
-            {{#with totals.battle}}
-                <td class="col-tier">{{float avgTier}}</td>
+            {{#with totals}}
+                <td class="col-tier">{{float battle.avgTier}}</td>
                 <td class="col-icon"><span class="icon-tank icon-tank-Observer"></span></td>
                 <td class="col-title">По аккаунту</td>
-                <td>{{battles}}</td>
-                <td>{{percents winRate}}</td>
-                <td>{{float avgDamageDealt}}</td>
-                <td>{{color-scale ../totals/efficiency ./formula}} {{../totals.efficiency}}</td>
+                <td>{{battle.battles}}</td>
+                <td>{{percents battle.winRate}}</td>
+                <td>{{float battle.avgDamageDealt}}</td>
+                <td>{{color-scale efficiencyKey}} {{efficiency}}</td>
             {{/with}}
             </tr>
         </tbody>
 
         <tbody>
-        {{#each tanks}}
+        {{#each stats}}
             <tr {{bind-attr class=":item isMuted"}}>
             {{#if battle.battles}}
                 <td class="col-tier">{{battle.avgTier}}</td>
@@ -56,7 +56,7 @@
                 <td>{{battle.battles}}</td>
                 <td>{{percents battle.winRate}}</td>
                 <td>{{float battle.avgDamageDealt}}</td>
-                <td>{{color-scale efficiency dossier.formula}} {{efficiency}}</td>
+                <td>{{color-scale efficiencyKey}} {{efficiency}}</td>
             {{else}}
                 <td class="col-tier">{{tank.info.tier}}</td>
                 <td class="col-title">{{tank.info.title}}</td>

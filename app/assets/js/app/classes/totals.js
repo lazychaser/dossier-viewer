@@ -1,11 +1,13 @@
 App.Dossier.Totals = App.Dossier.Stats.extend({
 
-    efficiency: null
-
-    , init: function() {
+    init: function() {
 
         this.isTotals = this.tank === undefined;
-        this.tank = this.tank || App.Dossier.Tank.create();
+        this.tank = this.tank || App.Dossier.Tank.create({
+            info: {
+                title: 'По аккаунту'
+            }
+        });
         this.battle = this.battle || App.Dossier.Battle.create();
     }
 
@@ -17,12 +19,22 @@ App.Dossier.Totals = App.Dossier.Stats.extend({
         return this;
     }
 
-    , computeEfficiency: function (formula) {
-
-        this.set('efficiency', formula.compute(this));
-
-        return this;
+    , title: function () {
+        return this.get('isTotals') ? 'По аккаунту' : this.get('tank.info.title');
     }
+    .property()
+
+    , efficiency: function () {
+
+        return this.get('controller.formula').compute(this);
+    }
+    .property('controller.formula').readOnly()
+
+    , efficiencyKey: function () {
+
+        return this.get('controller.formula').key(this.get('efficiency'));
+    }
+    .property('efficiency')
 
     , isMuted: function () {
 

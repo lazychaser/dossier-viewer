@@ -20,7 +20,7 @@ App.Route = Ember.Route.extend({
             App.set('error', message);
         });
     }
-})
+});
 
 App.ApplicationRoute = App.Route.extend({
 

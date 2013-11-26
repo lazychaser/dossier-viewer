@@ -30,10 +30,10 @@ Ember.Handlebars.helper('trans', function (line, def) {
     return window.trans && window.trans(line, def) || line;
 });
 
-Ember.Handlebars.helper('color-scale', function (value, formula) {
+Ember.Handlebars.helper('color-scale', function (key) {
 
     return new Handlebars.SafeString(
-        '<span class="color-scale ' + formula.key(value) + '"></span>'
+        '<span class="color-scale ' + key + '"></span>'
     );
 });
 

@@ -2,8 +2,8 @@
     {{#link-to 'index' class='navbar-brand'}}{{trans 'app.brand' 'dosser'}}{{/link-to}}
 </nav>
 
-<div class="main-content-narrow">
-    {{view App.AlertView message=App.error}}
+<div class="main-content">
+    {{view App.AlertView type="danger"  message=App.error}}
     {{view App.AlertView type="success" message=App.success timeout=4000}}
     {{outlet}}
 </div>

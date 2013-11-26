@@ -24,6 +24,7 @@ return array(
 
         'last-played' => 'Последний раз играл',
         'server' => 'Сервер',
+        'no-tanks' => 'Прости, но здесь танков нет...',
 
         'battles' => array(
             'header' => 'Бои',
@@ -31,6 +32,25 @@ return array(
             'clan' => 'клановые',
             'company' => 'ротные',
             'b7_42' => 'коммандные',
+        ),
+
+        'columns' => array(
+            'battle' => array(
+                'battles' => 'Бои',
+
+                'winRate' => 'Победы',
+                'hitRate' => 'Попадания',
+
+                'avgTier' => 'Ур.',
+                'avgDamageDealt' => 'Урон',
+                'avgSpotted' => 'Обнаружил',
+                'avgFrags' => 'Фраги',
+
+                'armorEfficiency' => 'ЭБ',
+                'piercingEfficiency' => 'ЭП',
+            ),
+
+            'title' => 'Танк',
         ),
     ),
 );

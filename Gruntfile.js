@@ -7,8 +7,18 @@ module.exports = function(grunt) {
         bootstrap: 'vendor/twbs/bootstrap',
         vendor: 'app/assets/js/vendor',
         app: 'app/assets/js/app',
+        less: 'app/assets/less',
         templates: 'app/assets/js/templates',
         icons: 'app/assets/icons',
+
+        jshint: {
+            options: {
+                expr: true,
+                laxcomma: true,
+            },
+
+            all: ['<%= app %>/**/*.js'],
+        },
 
         emberTemplates: {
 
@@ -38,6 +48,7 @@ module.exports = function(grunt) {
 
                     // Classes
                     '<%= app %>/classes/dossier.js',
+                    '<%= app %>/classes/columns.js',
                     '<%= app %>/classes/stats.js',
                     '<%= app %>/classes/battle.js',
                     '<%= app %>/classes/tank.js',
@@ -75,12 +86,12 @@ module.exports = function(grunt) {
             },
 
             bootstrap: {
-                src: 'app/assets/less/bootstrap/bootstrap.less',
+                src: '<%= less %>/bootstrap/bootstrap.less',
                 dest: 'public/css/bootstrap.css',
             },
 
             dist: {
-                src: 'app/assets/less/styles.less',
+                src: '<%= less %>/styles.less',
                 dest: 'public/css/styles.css',
             }
         },
@@ -123,12 +134,12 @@ module.exports = function(grunt) {
         watch: {
 
             bootstrap: {
-                files: 'app/assets/less/bootstrap/*.less',
+                files: '<%= less %>/bootstrap/*.less',
                 tasks: ['recess:bootstrap', 'cssmin'],
             },
 
             less: {
-                files: 'app/assets/less/*.less',
+                files: '<%= less %>/*.less',
                 tasks: ['recess:dist', 'cssmin'],
             },
 
@@ -159,6 +170,7 @@ module.exports = function(grunt) {
     });
 
     grunt.loadNpmTasks('grunt-recess');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -169,7 +181,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-ember-templates');
     grunt.loadNpmTasks('grunt-shell');
 
-    grunt.registerTask('js-dev', ['emberTemplates', 'concat:js', 'clean:templates']);
+    grunt.registerTask('js-dev', ['jshint', 'emberTemplates', 'concat:js', 'clean:templates']);
 
     grunt.registerTask('js', ['js-dev', 'uglify']);
     grunt.registerTask('css', ['recess', 'cssmin']);

@@ -71,8 +71,26 @@ return array(
 				'error.not-found',
 				'error.wrong-player',
 				'last-played',
-				'server',
+				'server', 'no-tanks',
 				'battles' => array('header', 'random', 'clan', 'company', 'b7_42'),
+
+				'columns' => array(
+					'title',
+					'battle' => array(
+						'battles', 
+
+						'avgTier', 
+						'avgDamageDealt',
+						'avgSpotted',
+						'avgFrags',
+
+						'winRate',
+						'hitRate',
+
+						'armorEfficiency',
+						'piercingEfficiency',
+					),
+				),
 			),
 		),
 	),
