@@ -62,6 +62,10 @@ module.exports = function(grunt) {
                     // Components
                     '<%= app %>/components/uploadButton.js',
 
+                    // Views
+                    '<%= app %>/views/alert.js',
+                    '<%= app %>/views/dossierTable.js',
+
                     // Pages
                     '<%= app %>/pages/index.js',
                     '<%= app %>/pages/dossier.js',

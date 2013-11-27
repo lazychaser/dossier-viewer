@@ -34,6 +34,7 @@ App.DossierController = Ember.ObjectController.extend({
 
         this.initColumns([
               'battle.avgTier:tier'
+            , 'icon:icon'
             , 'title'
             , 'battle.battles'
             , 'battle.winRate:percent'
@@ -91,10 +92,10 @@ App.DossierController = Ember.ObjectController.extend({
     .property('model', 'filter.changed').readOnly()
 
     , totals: function () {
-        return App.Dossier.Totals.create({
-            controller: this
-        })
-        .mergeAll(this.get('statsFiltered'));
+        if (this.get('statsFiltered').length === 0) return null;
+
+        return App.Dossier.Totals.create({ controller: this })
+                .mergeAll(this.get('statsFiltered'));
     }
     .property('statsFiltered').readOnly()
 
@@ -125,5 +126,5 @@ App.DossierController = Ember.ObjectController.extend({
 });
 
 App.DossierView = Ember.View.extend({
-    templateName: 'dossier_test'
+    
 });

@@ -63,7 +63,7 @@ class DossierController extends BaseController {
             ->setLastModified($lastModified)
             ->setExpires($lastModified->addDay());
 
-        // if ($response->isNotModified($request)) return $response;
+        if ($response->isNotModified($request)) return $response;
 
         $dossier = $this->dossier->get($player);
 

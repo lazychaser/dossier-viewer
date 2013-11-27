@@ -75,7 +75,7 @@ return array(
 				'battles' => array('header', 'random', 'clan', 'company', 'b7_42'),
 
 				'columns' => array(
-					'title',
+					'title', 'icon',
 					'battle' => array(
 						'battles', 
 

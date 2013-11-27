@@ -5,20 +5,36 @@ App.Dossier.Column = Ember.Object.extend({
     , position: 0
     , type: null
 
-    , title: function () {
+    , renderHead: function (b) {
+        b.push('<th class="' + this.get('className') + '">');
 
-        return trans('app.dossier.columns.' + this.get('key'));
+        this.renderHeadCell(b);
+
+        b.push('</th>');
     }
-    .property()
+
+    , renderHeadCell: function (b) {
+        b.push(trans('app.dossier.columns.' + this.get('key')));
+    }
+
+    , render: function (b, model) {
+        b.push('<td class="' + this.get('className') + '">');
+
+        this.renderCell(b, model);
+
+        b.push('</td>');
+    }
+
+    , renderCell: function (b, model) {
+        b.push(this.getValue(model));
+    }
 
     , className: function () {
-
         return 'col-' + this.get('type') + ' col-' + this.get('key').replace(/\./g, '-');
     }
     .property()
 
     , getValue: function (model) {
-
         return model.get(this.get('key'));
     }
 });
@@ -67,18 +83,27 @@ App.Dossier.PercentColumn = App.Dossier.Column.extend({
 App.Dossier.EfficiencyColumn = App.Dossier.Column.extend({
     type: 'efficiency'
 
-    , title: function () {
-        return this.get('owner.formula.name');
+    , renderHeadCell: function (b) {
+        b.push(this.get('owner.formula.name'));
     }
-    .property('owner.formula')
 
-    , getValue: function (model) {
-
+    , renderCell: function (b, model) {
         var formula = this.get('owner.formula')
-            , value = formula.compute(model)
-            , key = formula.key(value);
+            , value = this.getValue(model)
+            ;
 
-        return '<span class="color-scale ' + key + '"></span> ' + value;
+        b.push('<span class="color-scale ' + formula.key(value) + '"></span> ');
+        b.push(value);
+    }
+});
+
+App.Dossier.IconColumn = App.Dossier.Column.extend({
+    type: 'icon'
+
+    , renderCell: function (b, model) {
+        var icon = model.get('isTotals') ? 'Observer' : model.get('tank.info.icon');
+
+        b.push('<span class="icon-tank icon-tank-' + icon + '"></span>');
     }
 });
 
@@ -89,6 +114,7 @@ App.Dossier.Column.reopenClass({
         , 'tier': App.Dossier.TierColumn
         , 'percent': App.Dossier.PercentColumn
         , 'efficiency': App.Dossier.EfficiencyColumn
+        , 'icon': App.Dossier.IconColumn
     }
 
     , create: function (params, type) {

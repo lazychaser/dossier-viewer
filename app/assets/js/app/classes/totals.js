@@ -2,13 +2,13 @@ App.Dossier.Totals = App.Dossier.Stats.extend({
 
     init: function() {
 
-        this.isTotals = this.tank === undefined;
-        this.tank = this.tank || App.Dossier.Tank.create({
-            info: {
-                title: 'По аккаунту'
-            }
-        });
-        this.battle = this.battle || App.Dossier.Battle.create();
+        this.set('isTotals', this.get('tank') === undefined);
+
+        !this.get('tank') && 
+            this.set('tank', App.Dossier.Tank.create());
+
+        !this.get('battle') &&
+            this.set('battle', App.Dossier.Battle.create());
     }
 
     , merge: function (other) {
