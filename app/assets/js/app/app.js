@@ -1,9 +1,6 @@
 $('#loading').remove();
 
-App = Ember.Application.create({
-    error: null
-    , success: null
-});
+App = Ember.Application.create();
 
 App.Router.map(function () {
     this.resource('dossier', { path: ':player' });
@@ -11,13 +8,12 @@ App.Router.map(function () {
 
 App.Route = Ember.Route.extend({
 
-    deactivate: function () { App.set('error', null); }
-    , beforeModel: function () { App.set('error', null); }
+    deactivate: function () { this.send('hideMessages'); }
+    , beforeModel: function () { this.controller && this.send('hideMessages'); }
 
     , transitionWithErrorTo: function (route, message) {
-
-        this.transitionTo(route).then(function () {
-            App.set('error', message);
+        return this.transitionTo(route).then(function (route) {
+            route.send('showError', message);
         });
     }
 });
@@ -25,28 +21,44 @@ App.Route = Ember.Route.extend({
 App.ApplicationRoute = App.Route.extend({
 
     actions: {
-        /*loading: function () {
 
-            var view = Ember.View.create({
-                
-            })
-            .append();
-
-            this.router.one('didTransition', function () {
-                view.destroy();
-            });
-        }
-
-        , */error: function (xhr, transition) {
+        /**
+         * Handle general error from AJAX response.
+         *
+         * @param  {jqXHR} xhr
+         * @param  {Ember.Transition} transition
+         *
+         * @return {void}
+         */
+        error: function (xhr, transition) {
             var message = xhr.responseJSON.error.message || trans('app.general-error');
 
-            this.transitionWithErrorTo('index', message);
+            this.controller && this.controller.send('showError', message) ||
+                this.transitionWithErrorTo('index', message);
+        }
+
+        , showError: function (message) {
+            this.controller.set('error', message);
+        }
+
+        , showSuccess: function (message) {
+            this.controller.set('success', message);
+        }
+
+        , hideMessages: function () {
+            this.controller && this.controller.set('error', null);
+            this.controller && this.controller.set('success', null);
         }
 
         , showDossier: function (dossier) {
             this.transitionTo('dossier', dossier);
         }
     }
+});
+
+App.ApplicationController = Ember.Controller.extend({
+    error: null
+    , success: null
 });
 
 App.LoadingRoute = App.Route.extend({});

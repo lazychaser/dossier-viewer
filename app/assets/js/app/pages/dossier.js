@@ -113,12 +113,11 @@ App.DossierController = Ember.ObjectController.extend({
     }
 
     , actions: {
-
         updateDossier: function (dossier) {
             if (dossier.get('player') !== this.get('model.player')) {
-                App.set('error', trans('app.dossier.error.wrong-player'));
+                this.send('showError', trans('app.dossier.error.wrong-player'));
             } else {
-                App.set('success', trans('app.dossier.did-refresh'));
+                this.send('showSuccess', trans('app.dossier.did-refresh'));
                 this.set('model', dossier);
             }
         }
