@@ -1,0 +1,86 @@
+.dossier {
+
+    &-refresh {
+        color: @gray-light;
+        font-size: 60%;
+        padding: 0 3px;
+        line-height: 1;
+
+        &.is-sending .glyphicon {
+            display: inline-block;
+                    animation: loading 1s ease-in-out infinite;
+            -webkit-animation: loading 1s ease-in-out infinite;
+        }
+
+        input {
+            line-height: 1;
+        }
+    }
+
+    &-details {
+    
+        font-size: @font-size-small;    
+    
+        dt, dd {
+            display: inline;
+        }
+    }
+
+    &-data {
+        margin: 15px 0 0;
+    }
+
+    &-table {
+
+        width: auto;
+        min-width: @screen-sm;
+        margin: 0 auto;
+
+        th { 
+            text-align: center;
+        }
+
+        .item {
+
+            line-height: 24px;
+            vertical-align: middle;
+
+            .icon-tank {
+                vertical-align: middle;
+            }
+
+            &.is-muted {
+                .opacity(0.5);
+
+                &:hover {
+                    .opacity(1);
+                }
+            }
+
+            &.is-totals {
+                font-weight: bold;
+            }
+        }
+
+        .col-tier {
+            width: 50px;
+        }
+
+        .col-title {
+            text-align: left;
+            width: 200px;
+        }
+
+        .col-float, .col-percent {
+            width: 70px;
+        }
+
+        .col-icon {
+            // width: 1%;
+        }
+
+        .col-efficiency {
+            width: 70px;
+        }
+    }
+}

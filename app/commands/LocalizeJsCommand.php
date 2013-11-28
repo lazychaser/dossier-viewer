@@ -26,7 +26,13 @@ class LocalizeJsCommand extends Command {
 
 	protected $lang;
 
-	protected $template = 'function trans(line, def) { var lang = {items}; return lang[line] || def || line; }';
+	protected $template = <<<'EOT'
+LOCALE="{locale}";
+function trans(l, d) { 
+	var i = {items}; 
+	return i[l] || d || l; 
+}
+EOT;
 
 	/**
 	 * Create a new command instance.
@@ -98,7 +104,11 @@ class LocalizeJsCommand extends Command {
 	protected function save($locale, array $items)
 	{
 		$path = "public/js/lang.$locale.js";
-		$data = str_replace('{items}', json_encode($items), $this->template);
+		$replace = array(
+			'{locale}' => $locale,
+			'{items}' => json_encode($items),
+		);
+		$data = strtr($this->template, $replace);
 		
 		$this->file->put($path, $data);
 

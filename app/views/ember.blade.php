@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>@lang('app.brand')</title>
+    <meta name="keywords" content="@lang('app.keywords')">
     <link rel="stylesheet" href="{{ asset('css/styles.min.css') }}">
 </head>
 <body>

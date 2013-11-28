@@ -2,7 +2,9 @@
     {{#link-to 'index' class='navbar-brand'}}{{trans 'app.brand' 'dosser'}}{{/link-to}}
 
     <ul class="nav navbar-nav">
-        <li>{{#link-to 'index'}}Главная{{/link-to}}</li>
+        {{#link-to 'index' tagName='li'}}
+            <a href="#/">Главная</a>
+        {{/link-to}}
     </ul>
 </nav>
 

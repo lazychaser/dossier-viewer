@@ -191,7 +191,7 @@ module.exports = function(grunt) {
     grunt.registerTask('css', ['recess', 'cssmin']);
     
     // Default task(s).
-    grunt.registerTask('default', ['shell:icons', 'css', 'js', 'copy:fonts', 'shell:lang']);
+    grunt.registerTask('install', ['shell:icons', 'css', 'js', 'copy:fonts', 'shell:lang']);
 
-    grunt.registerTask('update', ['css', 'js', 'shell:lang']);
+    grunt.registerTask('default', ['css', 'js', 'shell:lang']);
 };
