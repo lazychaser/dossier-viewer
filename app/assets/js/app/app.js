@@ -1,6 +1,8 @@
-$('#loading').remove();
+"use strict";
 
-App = Ember.Application.create();
+Ember.$('#loading').remove();
+
+var App = window.App = Ember.Application.create();
 
 App.Router.map(function () {
     this.resource('dossier', { path: ':player' });
@@ -8,8 +10,13 @@ App.Router.map(function () {
 
 App.Route = Ember.Route.extend({
 
-    deactivate: function () { this.send('hideMessages'); }
-    , beforeModel: function () { this.controller && this.send('hideMessages'); }
+    deactivate: function () { 
+        this.send('hideMessages'); 
+    }
+
+    , beforeModel: function () { 
+        this.controller && this.send('hideMessages'); 
+    }
 
     , transitionWithErrorTo: function (route, message) {
         return this.transitionTo(route).then(function (route) {

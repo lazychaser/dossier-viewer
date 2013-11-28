@@ -4,7 +4,7 @@ App.Dossier.BaseFormula = Ember.Object.extend({
 
     , key: function (value) {
 
-        var cuts = this.get('cuts')
+        var cuts = this.cuts
             , key = App.Dossier.BaseFormula.ColorKeys[0]
             ;
 

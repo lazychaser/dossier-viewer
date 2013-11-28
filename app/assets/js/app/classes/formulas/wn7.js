@@ -1,5 +1,4 @@
 App.Dossier.Wn7Formula = App.Dossier.BaseFormula.extend({
-    
     name: 'Wn7'
     , code: 'wn7'
 
@@ -9,14 +8,14 @@ App.Dossier.Wn7Formula = App.Dossier.BaseFormula.extend({
         var b = totals.get('battle')
             , battles = b.get('battles');
 
-        if (!battles) return 0;
+        if (!battles) return null;
 
         var   tier = b.get('avgTier')
             , frag = b.get('avgFrags')
             , dmg  = b.get('avgDamageDealt')
             , spot = b.get('avgSpotted')
             , def  = b.get('avgDroppedCapturePoints')
-            , win  = totals.get('isTotals') ? 100 * b.get('winRate') : 50
+            , win  = totals.isTotals ? 100 * b.get('winRate') : 50
             , v    = 0.0
             ;
 

@@ -25,11 +25,42 @@ App.DossierController = Ember.ObjectController.extend({
     })
     .readOnly()
 
+    , statsFiltered: Ember.computed(function () {
+        var tanks = this.get('model.tanks');
+
+        if (!tanks) return [];
+
+        return tanks
+            .map(function (tankBattles) {
+                var battle = this.aggregateBattles(tankBattles.battles);
+
+                if (battle) {
+                    var tank = App.Dossier.Tank.create(tankBattles.tank);
+
+                    return App.Dossier.Totals.create({
+                        tank: tank
+                        , battle: battle
+                        , controller: this
+                    });
+                }
+            }, this)
+            .filter(function (item) { return item; });
+    })
+    .property('model', 'filter.changed').readOnly()
+
+    , totals: Ember.computed(function () {
+        if (this.get('statsFiltered').length === 0) return null;
+
+        return App.Dossier.Totals.create({ controller: this })
+                .mergeAll(this.get('statsFiltered'));
+    })
+    .property('statsFiltered').readOnly()
+
     , init: function () {
-        !this.get('formula') &&
+        !this.formula &&
             this.set('formula', App.Dossier.Wn7Formula.create());
 
-        !this.get('filter') && 
+        !this.filter && 
             this.set('filter', App.Dossier.BattleTypeFilter.create());
 
         this.initColumns([
@@ -65,39 +96,6 @@ App.DossierController = Ember.ObjectController.extend({
             }, type);
         }));
     }
-
-    , statsFiltered: function () {
-
-        var me = this
-            , tanks = me.get('model.tanks');
-
-        if (!tanks) return [];
-
-        return tanks
-            .map(function (tankBattles) {
-                var battle = me.aggregateBattles(tankBattles.battles);
-
-                if (battle) {
-                    tank = App.Dossier.Tank.create(tankBattles.tank);
-
-                    return App.Dossier.Totals.create({
-                        tank: tank
-                        , battle: battle
-                        , controller: me
-                    });
-                }
-            })
-            .filter(function (item) { return item; });
-    }
-    .property('model', 'filter.changed').readOnly()
-
-    , totals: function () {
-        if (this.get('statsFiltered').length === 0) return null;
-
-        return App.Dossier.Totals.create({ controller: this })
-                .mergeAll(this.get('statsFiltered'));
-    }
-    .property('statsFiltered').readOnly()
 
     , aggregateBattles: function (battles) {
 

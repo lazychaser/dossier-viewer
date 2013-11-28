@@ -30,81 +30,80 @@ App.Dossier.Battle = App.Dossier.Stats.extend({
         ]
     }
 
+    , battlesNew: Ember.computed(function () {
+
+        return this.battles - this.battles_old;
+    })
+
+    , winRate: Ember.computed(function () { 
+
+        return this.battles > 0 ? this.wins / this.battles : null; 
+    })
+
+    , hitRate: Ember.computed(function () { 
+
+        return this.shots > 0 ? this.hits / this.shots : null; 
+    })
+
+    , avgSurvived: Ember.computed(function () { 
+
+        return this.battles > 0 ? this.survived / this.battles : null; 
+    })
+
+    , avgTier: Ember.computed(function () { 
+
+        return this.battles > 0 ? this.tier / this.battles : null; 
+    })
+
+    , avgDamageDealt: Ember.computed(function () {
+
+        return this.battles > 0 ? this.damage_dealt / this.battles : null; 
+    })
+
+    , avgHits: Ember.computed(function () { 
+
+        return this.battles > 0 ? this.hits / this.battles : null; 
+    })
+
+    , avgFrags: Ember.computed(function () { 
+
+        return this.battles > 0 ? this.frags / this.battles : null; 
+    })
+
+    , avgSpotted: Ember.computed(function () { 
+
+        return this.battles > 0 ? this.spotted / this.battles : null; 
+    })
+
+    , avgCapturePoints: Ember.computed(function () { 
+
+        return this.battles > 0 ? this.capture_points / this.battles : null; 
+    })
+
+    , avgDroppedCapturePoints: Ember.computed(function () { 
+
+        return this.battles > 0 ? this.dropped_capture_points / this.battles : null; 
+    })
+
+    , armorEfficiency: Ember.computed(function () {
+
+        if (!this.get('battlesNew')) return null;
+
+        return this.received_hits > 0 ? 
+            (1 - this.received_pierced_hits / this.received_hits) : null;
+    })
+
+    , piercingEfficiency: Ember.computed(function () {
+
+        if (!this.get('battlesNew')) return null;
+
+        return this.hits > 0 ? this.pierced_hits / this.hits : null;
+    })
+
     , merge: function (other) {
         this.type = this.type || other.type;
         this.type !== other.type && (this.type = App.Dossier.BattleTypes.AGGREGATED);
 
         return this._super(other);
     }
-
-    , battlesNew: function () {
-
-        return this.battles - this.battles_old;
-    }
-    .property()
-
-    , winRate: function () { 
-
-        return this.battles > 0 ? this.wins / this.battles : null; 
-    }
-    .property()
-
-    , hitRate: function () { 
-
-        return this.shots > 0 ? this.hits / this.shots : null; 
-    }
-    .property()
-
-    , avgTier: function () { 
-
-        return this.battles > 0 ? this.tier / this.battles : null; 
-    }
-    .property()
-
-    , avgDamageDealt: function () { 
-
-        return this.battles > 0 ? this.damage_dealt / this.battles : null; 
-    }
-    .property()
-
-    , avgHits: function () { 
-
-        return this.battles > 0 ? this.hits / this.battles : null; 
-    }
-    .property()
-
-    , avgFrags: function () { 
-
-        return this.battles > 0 ? this.frags / this.battles : null; 
-    }
-    .property()
-
-    , avgSpotted: function () { 
-
-        return this.battles > 0 ? this.spotted / this.battles : null; 
-    }
-    .property()
-
-    , avgDroppedCapturePoints: function () { 
-
-        return this.battles > 0 ? this.dropped_capture_points / this.battles : null; 
-    }
-    .property()
-
-    , armorEfficiency: function () {
-
-        if (!this.get('battlesNew')) return null;
-
-        return this.received_hits > 0 ? 
-            (1 - this.received_pierced_hits / this.received_hits) : null;
-    }
-    .property()
-
-    , piercingEfficiency: function () {
-
-        if (!this.get('battlesNew')) return null;
-
-        return this.hits > 0 ? this.pierced_hits / this.hits : null;
-    }
-    .property()
 });

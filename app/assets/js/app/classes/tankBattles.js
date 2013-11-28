@@ -1,12 +1,9 @@
 App.Dossier.TankBattles = Ember.Object.extend({
-
     init: function () {
-        
-        this.battles = $.map(this.battles, function (i) {
+        this.set('battles', Ember.$.map(this.battles, function (item) {
+            return App.Dossier.Battle.create(item);
+        }));
 
-            return App.Dossier.Battle.create(i);
-        });
-
-        this.tank = App.Dossier.Tank.create(this.tank);
+        this.set('tank', App.Dossier.Tank.create(this.tank));
     }
 });

@@ -1,10 +1,7 @@
 App.Dossier.Stats = Ember.Object.extend({
-
-    mergeFields: {}
-
-    , merge: function (other) {
+    merge: function (other) {
         var me = this
-            , merge = me.mergeFields;
+            , merge = me.get('mergeFields');
 
         $.each(merge, function (func, fields) {
 
@@ -22,11 +19,9 @@ App.Dossier.Stats = Ember.Object.extend({
     }
 
     , mergeAll: function (others) {
-        var me = this;
+        others.forEach(function (item) { this.merge(item); }, this);
 
-        $.each(others, function () { me.merge(this); });
-
-        return me;
+        return this;
     }
 
     , sum: function (a, b) { return a + b; }

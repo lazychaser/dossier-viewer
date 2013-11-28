@@ -5,6 +5,10 @@ App.Dossier.Column = Ember.Object.extend({
     , position: 0
     , type: null
 
+    , className: Ember.computed(function () {
+        return 'col-' + this.get('type') + ' col-' + this.get('key').replace(/\./g, '-');
+    })
+
     , renderHead: function (b) {
         b.push('<th class="' + this.get('className') + '">');
 
@@ -26,13 +30,14 @@ App.Dossier.Column = Ember.Object.extend({
     }
 
     , renderCell: function (b, model) {
-        b.push(this.getValue(model));
+        var value = this.getValue(model);
+
+        value === null ? this.renderEmpty(b) : b.push(value);
     }
 
-    , className: function () {
-        return 'col-' + this.get('type') + ' col-' + this.get('key').replace(/\./g, '-');
+    , renderEmpty: function (b) {
+        b.push('&mdash;');
     }
-    .property()
 
     , getValue: function (model) {
         return model.get(this.get('key'));
@@ -47,12 +52,9 @@ App.Dossier.FloatColumn = App.Dossier.Column.extend({
     type: 'float'
 
     , getValue: function (model) {
-
         var value = this._super(model);
 
-        if (value === null) return '&mdash;';
-
-        return value.toFixed(2);
+        return value === null ? null : value.toFixed(2);
     }
 });
 
@@ -60,8 +62,9 @@ App.Dossier.TierColumn = App.Dossier.Column.extend({
     type: 'tier'
 
     , getValue: function (model) {
-
         var value = this._super(model);
+
+        if (value === null) return value;
 
         return model.get('isTotals') ? value.toFixed(2) : value;
     }
@@ -71,12 +74,11 @@ App.Dossier.PercentColumn = App.Dossier.Column.extend({
     type: 'percent'
 
     , getValue: function (model) {
-
         var value = this._super(model);
 
-        if (value === null) return '&mdash;';
+        if (value === null) return null;
 
-        return (100 * value).toFixed(2) + '%';
+        return value !== null && (100 * value).toFixed(2) + '%' || null;
     }
 });
 
@@ -89,8 +91,13 @@ App.Dossier.EfficiencyColumn = App.Dossier.Column.extend({
 
     , renderCell: function (b, model) {
         var formula = this.get('owner.formula')
-            , value = this.getValue(model)
+            , value = formula.compute(model)
             ;
+
+        if (value === null) {
+            this.renderEmpty(b);
+            return;
+        }
 
         b.push('<span class="color-scale ' + formula.key(value) + '"></span> ');
         b.push(value);
@@ -118,21 +125,8 @@ App.Dossier.Column.reopenClass({
     }
 
     , create: function (params, type) {
-
         var constructor = this.Repository[type] || App.Dossier.TransparentColumn;
 
         return constructor.create(params);
     }
-});
-
-Ember.Handlebars.helper('cols', function (model, options) {
-
-    var columns = options.data.keywords.controller.get('columns')
-        , buf = '';
-
-    columns.forEach(function (col) {
-        buf += '<td class="' + col.get('className') + '">' + col.getValue(model) + '</td>';
-    });
-
-    return new Ember.Handlebars.SafeString(buf);
 });

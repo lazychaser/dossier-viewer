@@ -15,9 +15,10 @@ module.exports = function(grunt) {
             options: {
                 expr: true,
                 laxcomma: true,
+                sub: true,
             },
 
-            all: ['<%= app %>/**/*.js'],
+            all: ['public/js/app.js'],
         },
 
         emberTemplates: {
@@ -29,21 +30,32 @@ module.exports = function(grunt) {
                 },
 
                 files: {
-                    '<%= templates %>/_': [ '<%= templates %>/**/*.hbs' ],
+                    '<%= templates %>/compiled.js': [ '<%= templates %>/**/*.hbs' ],
                 },
             }
         },
 
         concat: {
 
-            js: {
+            vendor: {
                 src: [
                     '<%= vendor %>/jquery-2.0.3.js',
                     '<%= vendor %>/handlebars.runtime-v1.1.2.js',
                     '<%= vendor %>/ember-1.1.2.js',
-                    '<%= vendor %>/underscore.js',
+                ],
+
+                dest: 'public/js/vendor.js',
+            },
+
+            js: {
+                options: {
+                    banner: '(function (Ember, undefined) { "use strict";\n',
+                    footer: '})(Ember);',
+                },
+
+                src: [
                     '<%= app %>/helpers.js',
-                    '<%= templates %>/_',
+                    '<%= templates %>/compiled.js',
                     '<%= app %>/app.js',
 
                     // Classes
@@ -56,6 +68,8 @@ module.exports = function(grunt) {
                     '<%= app %>/classes/tankBattles.js',
                     '<%= app %>/classes/formulas/base.js',
                     '<%= app %>/classes/formulas/wn7.js',
+                    '<%= app %>/classes/formulas/eff.js',
+                    '<%= app %>/classes/formulas/wot.js',
                     '<%= app %>/classes/filters/base.js',
                     '<%= app %>/classes/filters/battleType.js',
 
@@ -77,9 +91,12 @@ module.exports = function(grunt) {
         },
 
         uglify: {
-            dist: {
-                src:  'public/js/app.js',
-                dest: 'public/js/app.min.js',
+            all: {
+                expand: true,
+                cwd:  'public/js',
+                src:  ['*.js', '!*.min.js'],
+                dest: 'public/js/',
+                ext:  '.min.js',
             },
         },
 
@@ -121,10 +138,6 @@ module.exports = function(grunt) {
             },
         },
 
-        clean: {
-            templates: [ '<%= templates %>/_' ],
-        },
-
         shell: {
             lang: {
                 command: 'php artisan localize-js',
@@ -147,13 +160,14 @@ module.exports = function(grunt) {
                 tasks: ['recess:dist', 'cssmin'],
             },
 
-            js: {
-                files: [
-                    '<%= app %>/**/*.js',
-                    '<%= templates %>/**/*.hbs',
-                ],
+            emberTemplates: {
+                files: '<%= templates %>/**/*.hbs',
+                tasks: ['emberTemplates', 'concat:js'],
+            },
 
-                tasks: ['js-dev'],
+            js: {
+                files: '<%= app %>/**/*.js',
+                tasks: ['app'],
             },
 
             lang: {
@@ -179,19 +193,20 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-clean');
+    // grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-handlebars');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-ember-templates');
     grunt.loadNpmTasks('grunt-shell');
 
-    grunt.registerTask('js-dev', ['jshint', 'emberTemplates', 'concat:js', 'clean:templates']);
+    grunt.registerTask('js-vendor', ['concat:vendor']);
+    grunt.registerTask('app', ['concat:js', 'jshint']);
 
-    grunt.registerTask('js', ['js-dev', 'uglify']);
+    grunt.registerTask('js', ['js-vendor', 'emberTemplates', 'app', 'uglify']);
     grunt.registerTask('css', ['recess', 'cssmin']);
     
     // Default task(s).
-    grunt.registerTask('install', ['shell:icons', 'css', 'js', 'copy:fonts', 'shell:lang']);
-
     grunt.registerTask('default', ['css', 'js', 'shell:lang']);
+    grunt.registerTask('install', ['shell:icons', 'copy:fonts', 'default']);
+
 };
