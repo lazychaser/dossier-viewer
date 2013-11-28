@@ -1,6 +1,10 @@
 App.Dossier.Totals = App.Dossier.Stats.extend({
     title: Ember.computed(function () {
-        return this.get('isTotals') ? 'По аккаунту' : this.get('tank.info.title');
+        return this.isTotals ? 'По аккаунту' : this.tank.info.title;
+    })
+
+    , isMuted: Ember.computed(function () {
+        return this.battle.battles < 50;
     })
 
     , init: function() {
