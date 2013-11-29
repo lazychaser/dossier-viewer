@@ -1,9 +1,13 @@
 <nav class="navbar navbar-fixed-top navbar-default" role="navigation">
-    {{#link-to 'index' class='navbar-brand'}}{{trans 'app.brand' 'dosser'}}{{/link-to}}
+    <a href="#/" class="navbar-brand">{{trans 'app.brand' 'dosser'}}</a>
 
     <ul class="nav navbar-nav">
         {{#link-to 'index' tagName='li'}}
             <a href="#/">Главная</a>
+        {{/link-to}}
+
+        {{#link-to 'help' tagName='li'}}
+            <a href="#/?">Помощь</a>
         {{/link-to}}
     </ul>
 </nav>

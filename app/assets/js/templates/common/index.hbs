@@ -1,7 +1,7 @@
 <div class="page-index">
     <div class="jumbotron">
         <h1>{{trans 'app.welcome.header'}}</h1>
-        <p>{{trans 'app.welcome.body'}}</p>
+        <p class="body">{{trans 'app.welcome.body'}}</p>
         
         <div class="input-group input-group-lg dossier-upload">
             <input class="form-control" type="text" value="%AppData%\wargaming.net\WorldOfTanks\dossier_cache" readonly autofocus>
@@ -12,6 +12,8 @@
                 {{/upload-button}}
             </span>
         </div>
+
+        <p class="help"><a href="#/?" class="navigate">Нужна помощь?</a></p>
     </div>
     
     {{partial "partial/promo"}}

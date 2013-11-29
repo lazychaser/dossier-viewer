@@ -6,6 +6,16 @@ body {
     padding-top: @navbar-height + 5px;
 }
 
+.navigate {
+    padding-bottom: 0.1em;
+    border-bottom: 0.1em dotted @link-color;
+
+    &:hover {
+        text-decoration: none;
+        border-bottom-color: @link-hover-color;
+    }
+}
+
 .main-content {
     // .center-block();
     // width: @screen-md;
@@ -31,6 +41,7 @@ body {
     }
 
     &-alert {
+
         height: @alert-padding * 2 + @line-height-computed;
         
         margin: 0;  
@@ -108,4 +119,8 @@ body {
 
 .page-dossier {
     @import "dossier.less";
+}
+
+.page-help {
+    @import "help.less";
 }

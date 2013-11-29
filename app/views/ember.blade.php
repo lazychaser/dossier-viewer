@@ -8,9 +8,11 @@
 <body>
     <p class="app-loading" id="loading"></p>
     
-    <script src="{{ asset('js/lang.'.Config::get('app.locale').'.js') }}"></script>
-    <script src="{{ asset('js/'.(Config::get('app.debug') ? 'vendor' : 'vendor.min').'.js') }}"></script>
-    <script src="{{ asset('js/'.(Config::get('app.debug') ? 'app' : 'app.min').'.js') }}"></script>
+    {{ script('lang-'.Config::get('app.locale')) }}
+    {{ script('vendor') }}
+    {{ script('templates') }}
+    {{ script('templates-'.Config::get('app.locale')) }}
+    {{ script('app') }}
 
 @if ($ga = Config::get('app.ga'))
     <script>

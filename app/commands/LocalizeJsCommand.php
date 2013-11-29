@@ -103,7 +103,7 @@ EOT;
 
 	protected function save($locale, array $items)
 	{
-		$path = "public/js/lang.$locale.js";
+		$path = "public/js/lang-$locale.js";
 		$replace = array(
 			'{locale}' => $locale,
 			'{items}' => json_encode($items),

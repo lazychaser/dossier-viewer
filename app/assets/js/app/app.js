@@ -6,6 +6,7 @@ var App = window.App = Ember.Application.create();
 
 App.Router.map(function () {
     this.resource('dossier', { path: ':player' });
+    this.route('help', { path: '/?' });
 });
 
 App.Route = Ember.Route.extend({

@@ -22,15 +22,27 @@ module.exports = function(grunt) {
         },
 
         emberTemplates: {
+            options: {
+                handlebarsPath: '<%= vendor %>/handlebars-v1.1.2.js',
+            },
 
-            dist: {
+            common: {
                 options: {
-                    handlebarsPath: '<%= vendor %>/handlebars-v1.1.2.js',
-                    templateBasePath: '<%= templates %>/',
+                    templateBasePath: '<%= templates %>/common/',
                 },
 
                 files: {
-                    '<%= templates %>/compiled.js': [ '<%= templates %>/**/*.hbs' ],
+                    'public/js/templates.js': [ '<%= templates %>/common/**/*.hbs' ],
+                },
+            },
+
+            ru: {
+                options: {
+                    templateBasePath: '<%= templates %>/ru/',
+                },
+
+                files: {
+                    'public/js/templates-ru.js': [ '<%= templates %>/ru/**/*.hbs' ],
                 },
             }
         },
@@ -55,7 +67,6 @@ module.exports = function(grunt) {
 
                 src: [
                     '<%= app %>/helpers.js',
-                    '<%= templates %>/compiled.js',
                     '<%= app %>/app.js',
 
                     // Classes
@@ -162,7 +173,7 @@ module.exports = function(grunt) {
 
             emberTemplates: {
                 files: '<%= templates %>/**/*.hbs',
-                tasks: ['emberTemplates', 'concat:js'],
+                tasks: ['emberTemplates'],
             },
 
             js: {
@@ -202,11 +213,11 @@ module.exports = function(grunt) {
     grunt.registerTask('js-vendor', ['concat:vendor']);
     grunt.registerTask('app', ['concat:js', 'jshint']);
 
-    grunt.registerTask('js', ['js-vendor', 'emberTemplates', 'app', 'uglify']);
+    grunt.registerTask('js', ['js-vendor', 'emberTemplates', 'app', 'shell:lang', 'uglify']);
     grunt.registerTask('css', ['recess', 'cssmin']);
     
     // Default task(s).
-    grunt.registerTask('default', ['css', 'js', 'shell:lang']);
+    grunt.registerTask('default', ['css', 'js']);
     grunt.registerTask('install', ['shell:icons', 'copy:fonts', 'default']);
 
 };
