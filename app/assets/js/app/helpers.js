@@ -16,7 +16,7 @@ Ember.Handlebars.helper('date', function (value) {
     return (new Date(value * 1000)).toLocaleString();
 });
 
-Ember.Handlebars.helper('icon', function (name, title) {
+Ember.Handlebars.registerHelper('icon', function (name, title) {
     title = typeof title == "string" && ' title="' + title + '"' || '';
     
     return new Handlebars.SafeString(
@@ -30,7 +30,7 @@ Ember.Handlebars.helper('trans', function (line, def) {
     return window.trans && window.trans(line, def) || line;
 });
 
-Ember.Handlebars.helper('color-scale', function (key) {
+Ember.Handlebars.registerHelper('color-scale', function (key) {
 
     return new Handlebars.SafeString(
         '<span class="color-scale ' + key + '"></span>'

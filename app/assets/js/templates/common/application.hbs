@@ -9,6 +9,12 @@
         {{#link-to 'help' tagName='li'}}
             <a href="#/?">Помощь</a>
         {{/link-to}}
+
+    {{#each player in App.favs.players}}
+        {{#link-to 'dossier' player tagName='li'}}
+            <a href="#/{{player}}">{{player}}</a>
+        {{/link-to}}
+    {{/each}}
     </ul>
 </nav>
 

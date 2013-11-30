@@ -1,15 +1,7 @@
 <div class="page-dossier">
-    <dl class="dossier-details">
-        <dt>{{trans 'app.dossier.server'}}:</dt>
-        <dd>{{server}}</dd>
-    
-    {{#if totals.battle.battles}}
-        <dt>{{trans 'app.dossier.last-played'}}:</dt>
-        <dd>{{date totals.tank.last_played_at}}</dd>
-    {{/if}}
-    </dl>
-    
+
     <h1 class="page-header">
+        {{#view App.FavsView playerBinding="player"}}{{icon 'star'}}{{/view}}
         {{player}}
         {{#upload-button action="updateDossier" class="dossier-refresh btn btn-link" title="{{trans app.dossier.refresh}}"}}
             {{icon 'refresh'}}
@@ -19,4 +11,14 @@
     {{lookup filter.component filter=filter}}
     
     <div class="dossier-data">{{view App.DossierTableView owner=this}}</div>
+
+    <dl class="dossier-details">
+        <dt>{{trans 'app.dossier.server'}}:</dt>
+        <dd>{{server}}</dd>
+    
+    {{#if totals.battle.battles}}
+        <dt>{{trans 'app.dossier.last-played'}}:</dt>
+        <dd>{{date totals.tank.last_played_at}}</dd>
+    {{/if}}
+    </dl>
 </div>

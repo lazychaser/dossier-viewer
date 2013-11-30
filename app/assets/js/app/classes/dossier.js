@@ -10,7 +10,7 @@ App.Dossier.reopenClass({
     }
 });
 
-App.Dossier.Store = (function () {
+App.Dossier.Store = (function ($) {
 
     var cache = {};
 
@@ -35,4 +35,4 @@ App.Dossier.Store = (function () {
             return cache[data.player] = create(data);
         }
     };
-})();
+})(Ember.$);

@@ -83,6 +83,7 @@ module.exports = function(grunt) {
                     '<%= app %>/classes/formulas/wot.js',
                     '<%= app %>/classes/filters/base.js',
                     '<%= app %>/classes/filters/battleType.js',
+                    '<%= app %>/classes/favs.js',
 
                     // Components
                     '<%= app %>/components/uploadButton.js',
@@ -90,6 +91,7 @@ module.exports = function(grunt) {
                     // Views
                     '<%= app %>/views/alert.js',
                     '<%= app %>/views/dossierTable.js',
+                    '<%= app %>/views/favs.js',
 
                     // Pages
                     '<%= app %>/pages/index.js',

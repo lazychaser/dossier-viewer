@@ -1,5 +1,3 @@
-"use strict";
-
 Ember.$('#loading').remove();
 
 var App = window.App = Ember.Application.create();
@@ -60,6 +58,11 @@ App.ApplicationRoute = App.Route.extend({
 
         , showDossier: function (dossier) {
             this.transitionTo('dossier', dossier);
+        }
+
+        , rememberPlayer: function (player) {
+            console.log('test');
+            console.log(this.controller);
         }
     }
 });
