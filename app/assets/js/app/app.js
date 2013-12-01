@@ -4,6 +4,7 @@ var App = window.App = Ember.Application.create();
 
 App.Router.map(function () {
     this.resource('dossier', { path: ':player' });
+    this.route('compare', { path: ':player/vs/:other' }); 
     this.route('help', { path: '/?' });
 });
 
@@ -58,11 +59,6 @@ App.ApplicationRoute = App.Route.extend({
 
         , showDossier: function (dossier) {
             this.transitionTo('dossier', dossier);
-        }
-
-        , rememberPlayer: function (player) {
-            console.log('test');
-            console.log(this.controller);
         }
     }
 });

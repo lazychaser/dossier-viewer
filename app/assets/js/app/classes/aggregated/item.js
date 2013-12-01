@@ -1,4 +1,4 @@
-App.Dossier.Totals = App.Dossier.Stats.extend({
+App.AggregatedDossier.Item = App.Dossier.Stats.extend({
     title: Ember.computed(function () {
         return this.isTotals ? 'По аккаунту' : this.tank.info.title;
     })

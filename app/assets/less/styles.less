@@ -6,6 +6,10 @@ body {
     padding-top: @navbar-height + 5px;
 }
 
+.muted {
+    color: @gray-light;
+}
+
 .navigate {
     padding-bottom: 0.1em;
     border-bottom: 0.1em dotted @link-color;
@@ -97,6 +101,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
 
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+    line-height: 1;
 
     &:before { content: '\e008'; }
 
@@ -119,6 +124,10 @@ body {
 
 .page-dossier {
     @import "dossier.less";
+}
+
+.page-compare {
+    @import "compare.less";
 }
 
 .page-help {

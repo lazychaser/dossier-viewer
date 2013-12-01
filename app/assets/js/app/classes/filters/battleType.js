@@ -7,7 +7,7 @@ App.Dossier.BattleTypeFilter = App.Dossier.BaseFilter.extend({
     , company: false
     , b7_42: false
 
-    , init: function () { this.get('changed'); }
+    , init: function () { this.get('@each'); }
 
     , battle: function (battle) {
         return !!this.get(this.key(battle.type));
@@ -23,7 +23,7 @@ App.Dossier.BattleTypeFilter = App.Dossier.BaseFilter.extend({
         }
     }
 
-    , changed: Ember.computed(function () {
+    , '@each': Ember.computed(function () {
         return true;
     })
     .property('random', 'clan', 'company', 'b7_42').readOnly()

@@ -21,8 +21,7 @@
 
         &.is-sending .glyphicon {
             display: inline-block;
-                    animation: loading 1s ease-in-out infinite;
-            -webkit-animation: loading 1s ease-in-out infinite;
+            .animation(loading 1s ease-in-out infinite);
         }
 
         input {
@@ -49,12 +48,12 @@
         min-width: @screen-sm;
         margin: 0 auto;
 
-        th { 
+        th, td { 
             text-align: center;
+            vertical-align: middle;
         }
 
         .item {
-
             line-height: 24px;
             vertical-align: middle;
 
@@ -82,18 +81,16 @@
         .col-title {
             text-align: left;
             width: 200px;
+            white-space: nowrap;
         }
 
-        .col-float, .col-percent {
+        .col-float, .col-percent, .col-number, .col-efficiency {
             width: 70px;
+            white-space: nowrap;
         }
 
         .col-icon {
             // width: 1%;
-        }
-
-        .col-efficiency {
-            width: 70px;
         }
     }
 }

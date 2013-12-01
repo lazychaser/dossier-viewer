@@ -24,9 +24,14 @@ App.Dossier.Store = (function ($) {
 
     return {
         byPlayer: function (player) {
-            if (cache[player]) return cache[player];
+            var dfd = $.Deferred();
 
-            return $.getJSON('/' + player + '.json').then(this.fromJSON);
+            player in cache && dfd.resolve(cache[player]) || 
+                $.getJSON('/' + player + '.json').then(function (resp) {
+                    dfd.resolve(App.Dossier.Store.fromJSON(resp));
+                }, dfd.reject);
+
+            return dfd.promise();
         }
 
         , fromJSON: function (data) {

@@ -15,48 +15,9 @@ App.DossierRoute = App.Route.extend({
     }
 });
 
-App.DossierController = Ember.ObjectController.extend({
+App.DossierBaseController = Ember.ObjectController.extend({
 
-    stats: Ember.computed.sort('statsFiltered', function (a, b) {
-        if (a.tank.last_played_at > b.tank.last_played_at) return -1;
-        if (a.tank.last_played_at < b.tank.last_played_at) return 1;
-
-        return 0;
-    })
-    .readOnly()
-
-    , statsFiltered: Ember.computed(function () {
-        var tanks = this.get('model.tanks');
-
-        if (!tanks) return [];
-
-        return tanks
-            .map(function (tankBattles) {
-                var battle = this.aggregateBattles(tankBattles.battles);
-
-                if (battle) {
-                    var tank = App.Dossier.Tank.create(tankBattles.tank);
-
-                    return App.Dossier.Totals.create({
-                        tank: tank
-                        , battle: battle
-                        , controller: this
-                    });
-                }
-            }, this)
-            .filter(function (item) { return item; });
-    })
-    .property('model', 'filter.changed').readOnly()
-
-    , totals: Ember.computed(function () {
-        if (this.get('statsFiltered').length === 0) return null;
-
-        return App.Dossier.Totals.create({ controller: this })
-                .mergeAll(this.get('statsFiltered'));
-    })
-    .property('statsFiltered').readOnly()
-
-    , init: function () {
+    init: function () {
         !this.formula &&
             this.set('formula', App.Dossier.Wn7Formula.create());
 
@@ -67,14 +28,14 @@ App.DossierController = Ember.ObjectController.extend({
               'battle.avgTier:tier'
             , 'icon:icon'
             , 'title'
-            , 'battle.battles'
+            , 'battle.battles:number'
             , 'battle.winRate:percent'
             , 'battle.avgDamageDealt:float'
             , 'battle.avgFrags:float'
             , 'battle.avgSpotted:float'
             , 'battle.hitRate:percent'
-            , 'battle.piercingEfficiency:percent'
-            , 'battle.armorEfficiency:percent'
+            // , 'battle.piercingEfficiency:percent'
+            // , 'battle.armorEfficiency:percent'
             , 'efficiency:efficiency'
         ]);
     }
@@ -96,27 +57,25 @@ App.DossierController = Ember.ObjectController.extend({
             }, type);
         }));
     }
+});
 
-    , aggregateBattles: function (battles) {
+App.DossierController = App.DossierBaseController.extend({
 
-        var battle = App.Dossier.Battle.create()
-            , filter = this.get('filter')
-            ;
-
-        battles.forEach(function (item) {
-            filter.battle(item) && battle.merge(item);
+    aggregated: Ember.computed(function () {
+        return App.AggregatedDossier.create({
+            data: this.content
+            , filter: this.filter
         });
-
-        return battle.get('battles') > 0 && battle || null;
-    }
+    })  
+    .property('content')
 
     , actions: {
         updateDossier: function (dossier) {
-            if (dossier.get('player') !== this.get('model.player')) {
+            if (dossier.get('player') !== this.get('content.player')) {
                 this.send('showError', trans('app.dossier.error.wrong-player'));
             } else {
                 this.send('showSuccess', trans('app.dossier.did-refresh'));
-                this.set('model', dossier);
+                this.set('content', dossier);
             }
         }
     }

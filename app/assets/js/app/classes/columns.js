@@ -4,6 +4,7 @@ App.Dossier.Column = Ember.Object.extend({
     , enabled: true
     , position: 0
     , type: null
+    , comparable: false
 
     , className: Ember.computed(function () {
         return 'col-' + this.get('type') + ' col-' + this.get('key').replace(/\./g, '-');
@@ -24,7 +25,11 @@ App.Dossier.Column = Ember.Object.extend({
     , render: function (b, model) {
         b.push('<td class="' + this.get('className') + '">');
 
-        this.renderCell(b, model);
+        if (model.other) {
+            this.comparable ? this.renderCompare(b, model) : this.renderCell(b, model.player);
+        } else {
+            this.renderCell(b, model);
+        }
 
         b.push('</td>');
     }
@@ -32,15 +37,40 @@ App.Dossier.Column = Ember.Object.extend({
     , renderCell: function (b, model) {
         var value = this.getValue(model);
 
-        value === null ? this.renderEmpty(b) : b.push(value);
+        value === null ? this.renderEmpty(b) : b.push(this.format(value, model));
     }
 
     , renderEmpty: function (b) {
         b.push('&mdash;');
     }
 
+    , renderCompare: function (b, model) {
+        var playerValue = this.getValue(model.player)
+            , otherValue = this.getValue(model.other)
+            , diff = playerValue - otherValue;
+
+        if (playerValue === null || otherValue === null) {
+            this.renderEmpty(b);
+            return;
+        }
+
+        this.renderCell(b, model.player);
+
+        if (diff === 0) {
+            return;
+        }
+
+        var sign = diff > 0 ? 'gt' : 'lt';
+
+        b.push('<span class="compare-value compare-value-' + sign + '">' + this.format(diff, model) + '</span>');
+    }
+
     , getValue: function (model) {
         return model.get(this.get('key'));
+    }
+
+    , format: function (value, model) {
+        return value;
     }
 });
 
@@ -48,42 +78,41 @@ App.Dossier.TransparentColumn = App.Dossier.Column.extend({
     type: 'transparent'
 });
 
+App.Dossier.NumberColumn = App.Dossier.Column.extend({
+    type: 'number'
+    , comparable: true
+});
+
 App.Dossier.FloatColumn = App.Dossier.Column.extend({
     type: 'float'
+    , comparable: true
 
-    , getValue: function (model) {
-        var value = this._super(model);
-
-        return value === null ? null : value.toFixed(2);
+    , format: function (value) {
+        return value.toFixed(2);
     }
 });
 
 App.Dossier.TierColumn = App.Dossier.Column.extend({
     type: 'tier'
+    , comparable: true
 
-    , getValue: function (model) {
-        var value = this._super(model);
-
-        if (value === null) return value;
-
-        return model.get('isTotals') ? value.toFixed(2) : value;
+    , format: function (value, model) {
+        return model.isTotals ? value.toFixed(2) : value;
     }
 });
 
 App.Dossier.PercentColumn = App.Dossier.Column.extend({
     type: 'percent'
+    , comparable: true
 
-    , getValue: function (model) {
-        var value = this._super(model);
-
-        if (value === null) return null;
-
-        return value !== null && (100 * value).toFixed(2) + '%' || null;
+    , format: function (value, model) {
+        return (100 * value).toFixed(2) + '%';
     }
 });
 
 App.Dossier.EfficiencyColumn = App.Dossier.Column.extend({
     type: 'efficiency'
+    , comparable: true
 
     , renderHeadCell: function (b) {
         b.push(this.get('owner.formula.name'));
@@ -102,13 +131,17 @@ App.Dossier.EfficiencyColumn = App.Dossier.Column.extend({
         b.push('<span class="color-scale ' + formula.key(value) + '"></span> ');
         b.push(value);
     }
+
+    , getValue: function (model) {
+        return this.get('owner.formula').compute(model);
+    }
 });
 
 App.Dossier.IconColumn = App.Dossier.Column.extend({
     type: 'icon'
 
     , renderCell: function (b, model) {
-        var icon = model.get('isTotals') ? 'Observer' : model.get('tank.info.icon');
+        var icon = model.isTotals ? 'Observer' : model.tank.info.icon;
 
         b.push('<span class="icon-tank icon-tank-' + icon + '"></span>');
     }
@@ -122,6 +155,7 @@ App.Dossier.Column.reopenClass({
         , 'percent': App.Dossier.PercentColumn
         , 'efficiency': App.Dossier.EfficiencyColumn
         , 'icon': App.Dossier.IconColumn
+        , 'number': App.Dossier.NumberColumn
     }
 
     , create: function (params, type) {

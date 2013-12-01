@@ -11,8 +11,6 @@ Ember.Handlebars.helper('float', function (value) {
 });
 
 Ember.Handlebars.helper('date', function (value) {
-    typeof value === "function" && (value = value.apply(this));
-
     return (new Date(value * 1000)).toLocaleString();
 });
 
@@ -24,7 +22,7 @@ Ember.Handlebars.registerHelper('icon', function (name, title) {
     );
 });
 
-Ember.Handlebars.helper('trans', function (line, def) {
+Ember.Handlebars.registerHelper('trans', function (line, def) {
     def = typeof def === "object" ? undefined : def;
 
     return window.trans && window.trans(line, def) || line;

@@ -1,0 +1,22 @@
+<div class="page-dossier page-compare">
+
+    <h1 class="page-header">
+        {{#link-to 'dossier' player class="muted pull-left" title=player.player}}
+            {{icon 'arrow-left'}}
+        {{/link-to}}
+
+        {{#link-to 'dossier' other class="muted pull-right" title=other.player}}
+            {{icon 'arrow-right'}}
+        {{/link-to}}
+
+        <span class="vs-container">
+            <span class="comparable player">{{player.player}}</span>
+            <span title="{{trans 'app.dossier.compare.exchange'}}">{{#link-to 'compare' swappedContent class="vs"}}vs{{/link-to}}</span>
+            <span class="comparable other">{{other.player}}</span>
+        </span>
+    </h1>
+    
+    {{lookup filter.component filter=filter}}
+
+    <div class="dossier-data">{{view App.DossierTableView owner=this}}</div>
+</div>

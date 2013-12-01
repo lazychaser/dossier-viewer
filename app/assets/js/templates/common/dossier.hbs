@@ -16,9 +16,9 @@
         <dt>{{trans 'app.dossier.server'}}:</dt>
         <dd>{{server}}</dd>
     
-    {{#if totals.battle.battles}}
+    {{#if aggregated.totals.battle.battles}}
         <dt>{{trans 'app.dossier.last-played'}}:</dt>
-        <dd>{{date totals.tank.last_played_at}}</dd>
+        <dd>{{date aggregated.totals.tank.last_played_at}}</dd>
     {{/if}}
     </dl>
 </div>

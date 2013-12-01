@@ -1,7 +1,7 @@
 App.DossierTableView = Ember.View.extend({
 
     render: function (b) {
-        var stats = this.get('owner.stats');
+        var stats = this.get('owner.aggregated.tanks');
 
         if (stats.length === 0) {
             b.push('<p>' + trans('app.dossier.no-tanks') + '</p>');
@@ -9,13 +9,16 @@ App.DossierTableView = Ember.View.extend({
             return;
         }
 
-        var totals = this.get('owner.totals')
-            , columns = this.get('owner.columns');
+        var totals = this.get('owner.aggregated.totals')
+            , columns = this.get('owner.columns')
+            , commonTotals = this.get('owner.aggregated.commonTotals')
+            ;
 
         b.push('<table class="dossier-table table table-hover table-condensed">');
         
         this.renderHead(b, columns);
         this.renderTotals(b, columns, totals);
+        commonTotals && this.renderTotals(b, columns, commonTotals);
         this.renderItems(b, columns, stats);
 
         b.push('</table>');
@@ -63,5 +66,5 @@ App.DossierTableView = Ember.View.extend({
     , needRerender: function () {
         this.rerender();
     }
-    .observes('owner.stats')
+    .observes('owner.aggregated')
 });

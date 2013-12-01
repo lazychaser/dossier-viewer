@@ -1,0 +1,105 @@
+.vs {
+    display: inline-block;
+    text-transform: uppercase;
+    font-style: italic;
+    color: red;
+    position: relative;
+
+    &:before {
+        display: block;
+        position: absolute;
+        .square(100%);
+        
+        margin-top: 2px;
+
+        font-family: "Glyphicons Halflings";
+        font-size: 90%;
+        font-style: normal;
+        content: "\e115";
+        
+        background: white;
+
+        .opacity(0);
+        .transition(opacity 100ms ease-in-out);
+    }
+
+    &:hover {
+        text-decoration: none;
+
+        &:before {
+            .opacity(1);
+        }
+    }
+
+    &-container {
+        width: 2em;
+        position: relative;
+        display: inline-block;
+
+        .comparable {
+            position: absolute;
+            top: 0;
+
+            &.player {
+                right: 100%;
+            }
+
+            &.other {
+                left: 100%;
+            }
+        }
+    }
+}
+
+.compare-value {
+    margin-left: 5px;
+    // font-weight: bold;
+
+    &-gt:before, &-lt:before {
+        font-family: 'Glyphicons Halflings';
+        font-weight: normal;
+        line-height: 1;
+    }
+
+    &-gt {
+        color: green;
+         &:before { content: '\2191'; }
+    }
+
+    &-lt {
+        color: red;
+        &:before { content: '\2193'; }
+    }
+}
+
+.dossier-table {
+
+    th, td {
+        text-align: left;
+    }
+
+    font-size: @font-size-small;
+
+    @media (min-width: @screen-lg-min) {
+        font-size: @font-size-base;
+
+        .col-tier {
+            width: 100px;
+        }
+
+        .col-float, .col-percent, .col-number, .col-efficiency {
+            width: 100px;
+        }
+    }
+
+    tr .compare-value {
+        font-size: 90%;
+        opacity: 0;
+        transition: opacity 100ms ease-in;
+    }
+
+    tr:hover .compare-value,
+    tr.is-totals .compare-value {
+        opacity: 1;
+    }
+}

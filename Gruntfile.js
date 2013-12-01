@@ -75,8 +75,9 @@ module.exports = function(grunt) {
                     '<%= app %>/classes/stats.js',
                     '<%= app %>/classes/battle.js',
                     '<%= app %>/classes/tank.js',
-                    '<%= app %>/classes/totals.js',
                     '<%= app %>/classes/tankBattles.js',
+                    '<%= app %>/classes/aggregated/dossier.js',
+                    '<%= app %>/classes/aggregated/item.js',
                     '<%= app %>/classes/formulas/base.js',
                     '<%= app %>/classes/formulas/wn7.js',
                     '<%= app %>/classes/formulas/eff.js',
@@ -96,6 +97,7 @@ module.exports = function(grunt) {
                     // Pages
                     '<%= app %>/pages/index.js',
                     '<%= app %>/pages/dossier.js',
+                    '<%= app %>/pages/compare.js',
                 ],
 
                 dest: 'public/js/app.js',
