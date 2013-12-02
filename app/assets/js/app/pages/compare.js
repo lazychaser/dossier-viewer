@@ -50,7 +50,7 @@ App.CompareController = App.DossierBaseController.extend({
         });
 
         var commonTotals = Ember.Object.create({
-            player:  App.AggregatedDossier.Item.create({ title: 'По общим танкам' })
+            player:  App.AggregatedDossier.Item.create({ title: trans('app.dossier.compare.commonTotalsTitle') })
             , other: App.AggregatedDossier.Item.create()
             , isTotals: true
         });

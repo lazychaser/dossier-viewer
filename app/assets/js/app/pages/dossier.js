@@ -70,12 +70,16 @@ App.DossierController = App.DossierBaseController.extend({
     .property('content')
 
     , actions: {
-        updateDossier: function (dossier) {
-            if (dossier.get('player') !== this.get('content.player')) {
-                this.send('showError', trans('app.dossier.error.wrong-player'));
+        updateDossier: function (response) {
+            if (response.status === 'ok') {
+                if (response.data.player !== this.get('content.player')) {
+                    this.send('showError', trans('app.dossier.error.wrong-player'));
+                } else {
+                    this.send('showSuccess', trans('app.dossier.did-refresh'));
+                    this.set('content', App.Dossier.Store.fromJSON(response.data));
+                }
             } else {
-                this.send('showSuccess', trans('app.dossier.did-refresh'));
-                this.set('content', dossier);
+                this.send('showError', trans('app.dossier.error.upload'));
             }
         }
     }

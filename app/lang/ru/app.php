@@ -27,6 +27,7 @@ return array(
 
         'compare' => array(
             'exchange' => 'Поменять местами',
+            'commonTotalsTitle' => 'По общим танкам',
         ),
 
         'last-played' => 'Последний раз играл',

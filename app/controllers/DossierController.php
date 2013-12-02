@@ -38,7 +38,19 @@ class DossierController extends BaseController {
 
         if (Request::ajax())
         {
-            return Response::json($dossier);
+            $status = 'ok';
+
+            if ($dossier === false)
+            {
+                $status = 'fail';
+                $error = 'CONVERT_FAILED';
+            }
+            else
+            {
+                $data = $dossier->toArray();
+            }
+
+            return Response::json(compact('status', 'error', 'data'));
         }
 
         if (false === $dossier)

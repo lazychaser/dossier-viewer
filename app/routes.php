@@ -16,6 +16,11 @@ Route::get('/', function()
 	return View::make('ember');
 });
 
+Route::get('test', function () {
+    bindtextdomain('germany_vehicles', app_path('i18n'));
+    echo dgettext('germany_vehicles', 'Pz35t');
+});
+
 Route::group(array('prefix' => '-'), function () {
 
     Route::post('upload', array(
@@ -24,14 +29,14 @@ Route::group(array('prefix' => '-'), function () {
     ));
 });
 
-Route::get('{player}', function ($player) {
-
-    return Redirect::to('/#/'.$player);
-})
-->where('player', '[a-zA-Z0-9_]+');
-
 Route::get('{player}.json', array(
     'as' => 'dossier.json', 
     'uses' => 'DossierController@json',
 ))
 ->where('player', '[a-zA-Z0-9_]+');
+
+Route::get('{anything}', function ($anything) {
+
+    return Redirect::to('/#/'.$anything);
+})
+->where('anything', '.+');

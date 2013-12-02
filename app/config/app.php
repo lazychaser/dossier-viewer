@@ -74,7 +74,7 @@ return array(
 				'server', 'no-tanks',
 				'battles' => array('header', 'random', 'clan', 'company', 'b7_42'),
 
-				'compare.exchange',
+				'compare.exchange', 'compare.commonTotalsTitle',
 
 				'columns' => array(
 					'title', 'icon',

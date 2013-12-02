@@ -4,6 +4,8 @@
     <title>@lang('app.brand')</title>
     <meta name="keywords" content="@lang('app.keywords')">
     <link rel="stylesheet" href="{{ asset('css/styles.min.css') }}">
+
+    <script src="{{ asset('js/modernizr.min.js') }}"></script>
 </head>
 <body>
     <p class="app-loading" id="loading"></p>

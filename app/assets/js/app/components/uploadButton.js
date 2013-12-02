@@ -15,7 +15,6 @@ App.UploadButtonComponent = Ember.Component.extend({
 
             formData.append('file', file);
 
-            App.set('error', false);
             me.set('isSending', true);
 
             $.ajax({
@@ -27,8 +26,7 @@ App.UploadButtonComponent = Ember.Component.extend({
                 , processData: false
             })
             .then(function (resp) {
-                resp && me.sendAction('action', App.Dossier.Store.fromJSON(resp));
-                !resp && App.set('error', trans('app.dossier.error.upload'));
+                me.sendAction('action', resp);
             })
             .always(function () { 
                 me.set('isSending', false); 
