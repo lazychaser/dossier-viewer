@@ -67,7 +67,7 @@ App.DossierController = App.DossierBaseController.extend({
             , filter: this.filter
         });
     })  
-    .property('content')
+    .property('content', 'filter.@each')
 
     , actions: {
         updateDossier: function (response) {
