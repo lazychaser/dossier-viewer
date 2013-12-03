@@ -24,7 +24,6 @@
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
       ga('create', '{{ $ga }}', '151.248.113.220');
-      ga('send', 'pageview');
 
     </script>
 @endif

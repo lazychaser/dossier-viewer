@@ -8,8 +8,10 @@
         {{/upload-button}}
     </h1>
     
-    {{lookup filter.component filter=filter}}
-    
+    <div class="dossier-toolbar" role="toolbar">
+        {{lookup filter.component filter=filter}}
+    </div>
+
     <div class="dossier-data">{{view App.DossierTableView owner=this}}</div>
 
     <dl class="dossier-details">

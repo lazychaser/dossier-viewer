@@ -1,9 +1,19 @@
-<section class="dossier-filter">
-    <header class="dossier-filter-header">{{trans 'app.dossier.battles.header'}}</header>
-    <article class="dossier-filter-body">
-        <label type="checkbox">{{view Ember.Checkbox checkedBinding="filter.random"}} {{trans 'app.dossier.battles.random'}}</label>
-        <label type="checkbox">{{view Ember.Checkbox checkedBinding="filter.b7_42"}} {{trans 'app.dossier.battles.b7_42'}}</label>
-        <label type="checkbox">{{view Ember.Checkbox checkedBinding="filter.clan"}} {{trans 'app.dossier.battles.clan'}}</label>
-        <label type="checkbox">{{view Ember.Checkbox checkedBinding="filter.company"}} {{trans 'app.dossier.battles.company'}}</label>
-    </article>
-</section>
+{{#view App.ButtonToggle checkedBinding="filter.random" class="btn-default"}}
+    {{trans 'app.dossier.battles.random'}}
+{{/view}}
+
+{{#view App.ButtonToggle checkedBinding="filter.b7_42" class="btn-default"}}
+    {{trans 'app.dossier.battles.b7_42'}}
+{{/view}}
+
+{{#view App.ButtonToggle checkedBinding="filter.company" class="btn-default"}}
+    {{trans 'app.dossier.battles.company'}}
+{{/view}}
+
+{{#view App.ButtonToggle checkedBinding="filter.clan" class="btn-default"}}
+    {{trans 'app.dossier.battles.clan'}}
+{{/view}}
+
+{{#view App.ButtonToggle checkedBinding="filter.all" class="btn-primary"}}
+    <strong>{{trans 'app.dossier.battles.all'}}</strong>
+{{/view}}

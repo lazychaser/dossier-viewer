@@ -53,7 +53,7 @@ module.exports = function(grunt) {
                 src: [
                     '<%= vendor %>/jquery-2.0.3.js',
                     '<%= vendor %>/handlebars.runtime-v1.1.2.js',
-                    '<%= vendor %>/ember-1.1.2.js',
+                    '<%= vendor %>/ember-1.2.0.js',
                 ],
 
                 dest: 'public/js/vendor.js',
@@ -93,6 +93,7 @@ module.exports = function(grunt) {
                     '<%= app %>/views/alert.js',
                     '<%= app %>/views/dossierTable.js',
                     '<%= app %>/views/favs.js',
+                    '<%= app %>/views/inputs.js',
 
                     // Pages
                     '<%= app %>/pages/index.js',

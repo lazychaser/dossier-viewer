@@ -7,6 +7,20 @@ App.Dossier.BattleTypeFilter = App.Dossier.BaseFilter.extend({
     , company: false
     , b7_42: false
 
+    , all: Ember.computed(function (key, value) {
+        if (arguments.length > 1) {
+            this.setProperties({
+                random: value
+                , clan: value
+                , company: value
+                , b7_42: value
+            });
+        }
+
+        return this.random && this.clan && this.company && this.b7_42;
+    })
+    .property('@each')
+
     , init: function () { this.get('@each'); }
 
     , battle: function (battle) {
@@ -29,6 +43,6 @@ App.Dossier.BattleTypeFilter = App.Dossier.BaseFilter.extend({
     .property('random', 'clan', 'company', 'b7_42').readOnly()
 });
 
-App.Dossier.BattleTypeFilterComponent = Ember.Component.extend({
-    templateName: 'filters/battleType'
+App.BattleTypeFilterComponent = Ember.Component.extend({
+    classNames: ['btn-group', 'btn-group-xs']
 });

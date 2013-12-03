@@ -72,7 +72,7 @@ return array(
 				'error.wrong-player',
 				'last-played',
 				'server', 'no-tanks',
-				'battles' => array('header', 'random', 'clan', 'company', 'b7_42'),
+				'battles' => array('all', 'random', 'clan', 'company', 'b7_42'),
 
 				'compare.exchange', 'compare.commonTotalsTitle',
 

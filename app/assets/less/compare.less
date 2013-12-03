@@ -1,44 +1,21 @@
-.vs {
-    display: inline-block;
-    text-transform: uppercase;
-    font-style: italic;
-    color: red;
-    position: relative;
 
-    &:before {
-        display: block;
-        position: absolute;
-        .square(100%);
-        
-        margin-top: 2px;
+.compare {
+    
+    &-exchange {
+        @width: 50px;
 
-        font-family: "Glyphicons Halflings";
-        font-size: 90%;
-        font-style: normal;
-        content: "\e115";
-        
-        background: white;
-
-        .opacity(0);
-        .transition(opacity 100ms ease-in-out);
-    }
-
-    &:hover {
-        text-decoration: none;
-
-        &:before {
-            .opacity(1);
-        }
-    }
-
-    &-container {
-        width: 2em;
         position: relative;
         display: inline-block;
+        padding: 0 10px;
+
+        &:hover {
+            text-decoration: none;
+        }
 
         .comparable {
             position: absolute;
             top: 0;
+            color: @text-color;
 
             &.player {
                 right: 100%;
@@ -48,27 +25,69 @@
                 left: 100%;
             }
         }
+
+        .slide {
+            display: inline-block;
+            width: @width;
+            overflow: hidden;
+
+            white-space: nowrap;
+            font-size: 0;
+            font-family: Tahoma, Arial, sans-serif;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: desaturate(red, 10%);
+            text-shadow: 1px 1px 0 white;
+
+            span {
+                width: @width;
+                display: inline-block;
+
+                font-size: 36px;
+
+                .transition(all 100ms ease-in);
+            }
+
+            .glyphicon {
+                .opacity(0);
+                font-size: 30px;
+            }
+
+            .vs {
+                .opacity(1);
+            }
+        }
+
+        &:hover .slide .vs {
+            margin-left: -@width;
+            .opacity(0);
+        }
+
+        &:hover .slide .glyphicon {
+            color: @link-hover-color;
+            .opacity(1);
+        }
     }
-}
 
-.compare-value {
-    margin-left: 5px;
-    // font-weight: bold;
+    &-value {
+        margin-left: 5px;
+        // font-weight: bold;
 
-    &-gt:before, &-lt:before {
-        font-family: 'Glyphicons Halflings';
-        font-weight: normal;
-        line-height: 1;
-    }
+        &-gt:before, &-lt:before {
+            font-family: 'Glyphicons Halflings';
+            font-weight: normal;
+            line-height: 1;
+        }
 
-    &-gt {
-        color: green;
-         &:before { content: '\2191'; }
-    }
+        &-gt {
+            color: green;
+             &:before { content: '\2191'; }
+        }
 
-    &-lt {
-        color: red;
-        &:before { content: '\2193'; }
+        &-lt {
+            color: red;
+            &:before { content: '\2193'; }
+        }
     }
 }
 

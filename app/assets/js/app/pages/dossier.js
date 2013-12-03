@@ -1,4 +1,4 @@
-App.DossierRoute = App.Route.extend({
+App.DossierRoute = Ember.Route.extend({
 
     model: function (params) {
         return App.Dossier.Store.byPlayer(params.player);

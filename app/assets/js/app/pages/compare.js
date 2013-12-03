@@ -1,4 +1,4 @@
-App.CompareRoute = App.Route.extend({
+App.CompareRoute = Ember.Route.extend({
 
     model: function (params) {
         var dfd = $.Deferred()

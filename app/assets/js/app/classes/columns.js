@@ -62,7 +62,7 @@ App.Dossier.Column = Ember.Object.extend({
 
         var sign = diff > 0 ? 'gt' : 'lt';
 
-        b.push('<span class="compare-value compare-value-' + sign + '">' + this.format(diff, model) + '</span>');
+        b.push('<span class="compare-value compare-value-' + sign + '">' + this.format(Math.abs(diff), model) + '</span>');
     }
 
     , getValue: function (model) {

@@ -38,5 +38,7 @@ Ember.Handlebars.registerHelper('color-scale', function (key) {
 Ember.Handlebars.registerHelper('lookup', function(component, options) {
 
   component = Ember.Handlebars.get(this, component, options);
-  Ember.Handlebars.helpers[component].call(this, options);
+  component = Ember.Handlebars.resolveHelper(options.data.view.container, component);
+
+  component && component.call(this, options);
 });

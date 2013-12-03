@@ -8,24 +8,7 @@ App.Router.map(function () {
     this.route('help', { path: '/?' });
 });
 
-App.Route = Ember.Route.extend({
-
-    deactivate: function () { 
-        this.send('hideMessages'); 
-    }
-
-    , beforeModel: function () { 
-        this.controller && this.send('hideMessages'); 
-    }
-
-    , transitionWithErrorTo: function (route, message) {
-        return this.transitionTo(route).then(function (route) {
-            route.send('showError', message);
-        });
-    }
-});
-
-App.ApplicationRoute = App.Route.extend({
+App.ApplicationRoute = Ember.Route.extend({
 
     actions: {
 
@@ -41,7 +24,31 @@ App.ApplicationRoute = App.Route.extend({
             var message = xhr.responseJSON.error.message || trans('app.general-error');
 
             this.controller && this.controller.send('showError', message) ||
-                this.transitionWithErrorTo('index', message);
+                this.transitionTo('index').then(function (route) {
+                    route.send('showError', message);
+                });
+        }
+
+        , loading: function () {
+            var view = Ember.View.create({
+                classNames: ['app-loading']
+            })
+            .append();
+
+            this.router.one('didTransition', function () {
+                view.destroy();
+            });
+        }
+
+        , willTransition: function () {
+            this.send('hideMessages');
+        }
+
+        , didTransition: function () {
+            window.ga && ga('send', 'pageview', {
+                page: window.location.hash
+                , title: window.location.hash
+            });
         }
 
         , showError: function (message) {
@@ -68,7 +75,7 @@ App.ApplicationController = Ember.Controller.extend({
     , success: null
 });
 
-App.LoadingRoute = App.Route.extend({});
+App.LoadingRoute = Ember.Route.extend({});
 App.LoadingView = Ember.View.extend({
     tagName: 'div'
     , classNames: 'app-loading'

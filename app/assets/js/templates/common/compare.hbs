@@ -9,11 +9,14 @@
             {{icon 'arrow-right'}}
         {{/link-to}}
 
-        <span class="vs-container">
+        {{#link-to 'compare' swappedContent class="compare-exchange"}}
             <span class="comparable player">{{player.player}}</span>
-            <span title="{{trans 'app.dossier.compare.exchange'}}">{{#link-to 'compare' swappedContent class="vs"}}vs{{/link-to}}</span>
+            <span title="{{trans 'app.dossier.compare.exchange'}}" class="slide">
+                <span class="vs">VS</span>
+                {{icon 'retweet'}}
+            </span>
             <span class="comparable other">{{other.player}}</span>
-        </span>
+        {{/link-to}}
     </h1>
     
     {{lookup filter.component filter=filter}}
