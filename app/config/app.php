@@ -73,6 +73,7 @@ return array(
 				'last-played',
 				'server', 'no-tanks',
 				'battles' => array('all', 'random', 'clan', 'company', 'b7_42'),
+				'tankTypes' => array('all', 'lite', 'medium', 'heavy', 'td', 'artillery'),
 
 				'compare.exchange', 'compare.commonTotalsTitle',
 

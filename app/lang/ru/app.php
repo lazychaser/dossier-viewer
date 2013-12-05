@@ -42,6 +42,15 @@ return array(
             'b7_42' => 'коммандные',
         ),
 
+        'tankTypes' => array(
+            'all' => 'все',
+            'lite' => 'лт',
+            'medium' => 'ст',
+            'heavy' => 'тт',
+            'td' => 'пт',
+            'artillery' => 'арта',
+        ),
+
         'columns' => array(
             'battle' => array(
                 'battles' => 'Бои',

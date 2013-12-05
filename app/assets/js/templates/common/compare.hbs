@@ -19,7 +19,10 @@
         {{/link-to}}
     </h1>
     
-    {{lookup filter.component filter=filter}}
+    <div class="dossier-toolbar" role="toolbar">
+        {{view App.BattleFilterView filter=filter.battleType}}
+        {{view App.TankTypeFilterView filter=filter.tankType}}
+    </div>
 
     <div class="dossier-data">{{view App.DossierTableView owner=this}}</div>
 </div>

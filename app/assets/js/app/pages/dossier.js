@@ -21,8 +21,7 @@ App.DossierBaseController = Ember.ObjectController.extend({
         !this.formula &&
             this.set('formula', App.Dossier.Wn7Formula.create());
 
-        !this.filter && 
-            this.set('filter', App.Dossier.BattleTypeFilter.create());
+        this.set('filter', App.Dossier.FilterCollection.create());
 
         this.initColumns([
               'battle.avgTier:tier'

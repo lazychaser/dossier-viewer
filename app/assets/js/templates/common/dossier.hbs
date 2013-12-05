@@ -9,7 +9,8 @@
     </h1>
     
     <div class="dossier-toolbar" role="toolbar">
-        {{lookup filter.component filter=filter}}
+        {{view App.BattleFilterView filter=filter.battleType}}
+        {{view App.TankTypeFilterView filter=filter.tankType}}
     </div>
 
     <div class="dossier-data">{{view App.DossierTableView owner=this}}</div>

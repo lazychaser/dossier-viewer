@@ -17,6 +17,8 @@ App.AggregatedDossier = Ember.Object.extend({
 
         tanks = tanks
             .map(function (tankBattles) {
+                if (!this.filter.tank(tankBattles.tank)) return;
+
                 var battle = this.aggregateBattles(tankBattles.battles);
 
                 if (battle) {

@@ -84,6 +84,8 @@ module.exports = function(grunt) {
                     '<%= app %>/classes/formulas/wot.js',
                     '<%= app %>/classes/filters/base.js',
                     '<%= app %>/classes/filters/battleType.js',
+                    '<%= app %>/classes/filters/tankType.js',
+                    '<%= app %>/classes/filters/collection.js',
                     '<%= app %>/classes/favs.js',
 
                     // Components
