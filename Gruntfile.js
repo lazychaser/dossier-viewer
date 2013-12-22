@@ -7,7 +7,7 @@ module.exports = function(grunt) {
         bootstrap: 'vendor/twbs/bootstrap',
         vendor: 'app/assets/js/vendor',
         app: 'app/assets/js/app',
-        less: 'app/assets/less',
+        less_src: 'app/assets/less',
         templates: 'app/assets/js/templates',
         icons: 'app/assets/icons',
 
@@ -118,19 +118,18 @@ module.exports = function(grunt) {
             },
         },
 
-        recess: {
+        less: {
             options: {
-                compile: true,
-                includePath: 'vendor/twbs/bootstrap/less',
+                paths: 'vendor/twbs/bootstrap/less',
             },
 
             bootstrap: {
-                src: '<%= less %>/bootstrap/bootstrap.less',
+                src: '<%= less_src %>/bootstrap/bootstrap.less',
                 dest: 'public/css/bootstrap.css',
             },
 
             dist: {
-                src: '<%= less %>/styles.less',
+                src: '<%= less_src %>/styles.less',
                 dest: 'public/css/styles.css',
             }
         },
@@ -169,13 +168,13 @@ module.exports = function(grunt) {
         watch: {
 
             bootstrap: {
-                files: '<%= less %>/bootstrap/*.less',
-                tasks: ['recess:bootstrap', 'cssmin'],
+                files: '<%= less_src %>/bootstrap/*.less',
+                tasks: ['less:bootstrap', 'cssmin'],
             },
 
             less: {
-                files: '<%= less %>/*.less',
-                tasks: ['recess:dist', 'cssmin'],
+                files: '<%= less_src %>/*.less',
+                tasks: ['less:dist', 'cssmin'],
             },
 
             emberTemplates: {
@@ -205,7 +204,7 @@ module.exports = function(grunt) {
         },
     });
 
-    grunt.loadNpmTasks('grunt-recess');
+    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -221,8 +220,8 @@ module.exports = function(grunt) {
     grunt.registerTask('app', ['concat:js', 'jshint']);
 
     grunt.registerTask('js', ['js-vendor', 'emberTemplates', 'app', 'shell:lang', 'uglify']);
-    grunt.registerTask('css', ['recess', 'cssmin']);
-    
+    grunt.registerTask('css', ['less', 'cssmin']);
+
     // Default task(s).
     grunt.registerTask('default', ['css', 'js']);
     grunt.registerTask('install', ['shell:icons', 'copy:fonts', 'default']);
